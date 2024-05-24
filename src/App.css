@@ -1,0 +1,14 @@
+#root {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+:where(.css-dev-only-do-not-override-b0nl0a).ant-popover .ant-popover-inner{
+  background-color: #000000;
+  border: 1px solid #242424;
+
+}
+
+:where(.css-dev-only-do-not-override-b0nl0a).ant-popover .ant-popover-arrow:before {
+  background : #000000
+}
