@@ -1,5 +1,25 @@
 import { message } from "antd";
 
+export const GET_FOLDERS = async (id, setFolders) => {
+  return await fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+    .then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+        message.error(data.msg);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return data;
+    })
+    .then((data) => {
+      window.localStorage.setItem("Folders", JSON.stringify(data));
+      setFolders(data);
+      console.table(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const POST_LOGIN = async (
   data,
   setLoading,
@@ -25,6 +45,7 @@ export const POST_LOGIN = async (
       setUserPersistence(data);
       window.localStorage.setItem("loguinUser", true);
       window.localStorage.setItem("UserData", JSON.stringify(data));
+
       setTimeout(() => {
         setLoading(false);
         navigate("/dashboard");

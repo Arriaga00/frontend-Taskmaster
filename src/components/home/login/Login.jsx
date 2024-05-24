@@ -2,28 +2,40 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { POST_LOGIN } from "../../../fetch/getAndPostHome";
+import { POST_LOGIN, GET_FOLDERS } from "../../../fetch/getAndPostHome";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Context from "../../../context/Context";
 
 const Login = () => {
-  const { setUserPersistence } = useContext(Context);
+  const navigate = useNavigate();
+  const { setUserPersistence, setFolders, UserPersistence } =
+    useContext(Context);
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  if (!UserPersistence) {
+    <LoadingOutlined />;
+  }
+  const User =
+    UserPersistence && UserPersistence.user.id ? (
+      UserPersistence.user.id
+    ) : (
+      <LoadingOutlined />
+    );
 
+  const loginUser = (data) => {
+    setLoading(true);
+    POST_LOGIN(data, setLoading, navigate, setUserPersistence);
+    setTimeout(() => {
+      GET_FOLDERS(User, setFolders);
+    }, 2500);
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const loginUser = (data) => {
-    setLoading(true);
-    POST_LOGIN(data, setLoading, navigate, setUserPersistence);
-  };
 
   return (
     <>

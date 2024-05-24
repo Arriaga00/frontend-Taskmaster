@@ -12,3 +12,20 @@
 :where(.css-dev-only-do-not-override-b0nl0a).ant-popover .ant-popover-arrow:before {
   background : #000000
 }
+
+.mainTodo {
+  box-sizing: border-box;
+}
+
+.sectionTodo{
+  box-sizing: border-box;
+}
+
+.gradient-text{
+  background-image: linear-gradient(to left, #667eea, #9f7aea);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: padding;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}

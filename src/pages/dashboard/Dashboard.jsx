@@ -1,7 +1,7 @@
 import CardUser from "../../components/dashboard/user/CardUser";
-import MainToDo from "./main/MainToDo";
 import Footer from "../../components/global/Footer";
-import NavBarToDo from "./main/NavBarToDo";
+import MainToDo from "../../components/dashboard/main/MainToDo";
+import NavBarToDo from "../../components/dashboard/main/nav/NavBarToDo";
 
 const Dashboard = () => {
   return (

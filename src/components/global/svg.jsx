@@ -35,3 +35,60 @@ export const SvgIconEdit = () => {
     </svg>
   );
 };
+
+export const SvgIconCategories = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="size-4"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 4.5v15m7.5-7.5h-15"
+      />
+    </svg>
+  );
+};
+
+export const SvgIconFolder = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="size-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+      />
+    </svg>
+  );
+};
+
+export const SvgIconView = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="size-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+      />
+    </svg>
+  );
+};
