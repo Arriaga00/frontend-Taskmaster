@@ -19,8 +19,8 @@ const Folders = () => {
             key={index}
             className="group [&_summary::-webkit-details-marker]:hidden mt-3 w-full ease-out duration-300"
           >
-            <summary className="group flex items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer">
-              <span className="text-sm font-medium"> {folder.name} </span>
+            <summary className="group flex items-center justify-between rounded-lg px-4 py-2 text-[#7a7a7a] hover:bg-gray-100 hover:text-[#242424] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer">
+              <span className="text-sm font-bold"> {folder.name} </span>
 
               <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                 <svg
@@ -46,7 +46,7 @@ const Folders = () => {
               {folder.categories.map((category, index) => {
                 return (
                   <li key={index}>
-                    <NavLink className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-[#242424] dark:hover:text-gray-200">
+                    <NavLink className="block rounded-lg px-4 py-2 text-sm  hover:bg-gray-100 ] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200">
                       {category.name}
                     </NavLink>
                   </li>

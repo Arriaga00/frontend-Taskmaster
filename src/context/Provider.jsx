@@ -4,6 +4,7 @@ import Context from "./Context";
 const Provider = ({ children }) => {
   const [UserPersistence, setUserPersistence] = useState([]);
   const [Folders, setFolders] = useState([]);
+  const [Tasks, setTasks] = useState([]);
 
   const PersistenceSession = () => {
     const storage = localStorage.getItem("UserData");
@@ -17,6 +18,12 @@ const Provider = ({ children }) => {
       const folders = JSON.parse(storageFolders);
       setFolders(folders);
     }
+
+    const storageTasks = localStorage.getItem("Task");
+    if (storageTasks) {
+      const tasks = JSON.parse(storageTasks);
+      setTasks(tasks);
+    }
   };
 
   useEffect(() => {
@@ -26,7 +33,14 @@ const Provider = ({ children }) => {
   return (
     <>
       <Context.Provider
-        value={{ UserPersistence, setUserPersistence, Folders, setFolders }}
+        value={{
+          UserPersistence,
+          setUserPersistence,
+          Folders,
+          setFolders,
+          Tasks,
+          setTasks,
+        }}
       >
         {children}
       </Context.Provider>

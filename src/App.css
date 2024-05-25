@@ -29,3 +29,28 @@
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
 }
+
+
+/* Oculta el checkbox original */
+input[type="checkbox"] {
+  appearance: none;
+  position: relative;
+}
+
+/* Crea una nueva caja para el checkbox */
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #397fec;
+  border-radius: 50%;
+}
+
+/* Muestra una marca de verificación cuando el checkbox está seleccionado */
+input[type="checkbox"]:checked:before {
+  color: #397fec;
+  content: "✔";
+  line-height: 18px;
+  text-align: center;
+}

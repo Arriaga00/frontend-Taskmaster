@@ -2,7 +2,11 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { POST_LOGIN, GET_FOLDERS } from "../../../fetch/getAndPostHome";
+import {
+  POST_LOGIN,
+  GET_FOLDERS,
+  GET_TASKS,
+} from "../../../fetch/getAndPostHome";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +14,7 @@ import Context from "../../../context/Context";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUserPersistence, setFolders, UserPersistence } =
+  const { setUserPersistence, setFolders, UserPersistence, setTasks } =
     useContext(Context);
   const [loading, setLoading] = useState(false);
 
@@ -29,6 +33,7 @@ const Login = () => {
     POST_LOGIN(data, setLoading, navigate, setUserPersistence);
     setTimeout(() => {
       GET_FOLDERS(User, setFolders);
+      GET_TASKS(User, setTasks);
     }, 2500);
   };
   const {

@@ -1,5 +1,25 @@
 import { message } from "antd";
 
+export const GET_TASKS = async (id, setTasks) => {
+  return await fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+    .then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+        message.error(data.msg);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return data;
+    })
+    .then((data) => {
+      window.localStorage.setItem("Task", JSON.stringify(data));
+      setTasks(data);
+      console.table(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 export const GET_FOLDERS = async (id, setFolders) => {
   return await fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
     .then(async (response) => {
