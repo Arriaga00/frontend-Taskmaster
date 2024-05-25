@@ -10,6 +10,7 @@ const Folders = () => {
   if (!Folders) {
     <LoadingOutlined />;
   }
+  console.log(Folders);
 
   return (
     <>
@@ -40,7 +41,7 @@ const Folders = () => {
 
             <ul className="mt-2 space-y-1 px-4 ease-out duration-300">
               <li>
-                <CreateCategory />
+                <CreateCategory folder={folder} />
               </li>
 
               {folder.categories.map((category, index) => {

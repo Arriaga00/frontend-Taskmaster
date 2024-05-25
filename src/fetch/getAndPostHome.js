@@ -105,3 +105,27 @@ export const POST_SIGNUP = async (data, setLoading, navigate) => {
       console.log(error);
     });
 };
+
+export const POST_CREATE_FOLDER = async (data) => {
+  return await fetch("http://localhost:3000/api/categories/save-category", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+        message.error(data.msg);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return data;
+    })
+    .then(() => {
+      window.localStorage.removeItem("Folders");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
