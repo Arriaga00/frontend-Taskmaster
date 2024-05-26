@@ -1,9 +1,13 @@
 import CheckView from "./CheckView";
+import SearhForState from "./SearhForState";
 
 const ToDo = () => {
   return (
     <>
-      <CheckView />
+      <section className="">
+        <SearhForState />
+        <CheckView />
+      </section>
     </>
   );
 };

@@ -8,7 +8,7 @@ import {
 } from "../../../../fetch/getAndPostHome";
 
 const CreateFolder = () => {
-  const { UserPersistence } = useContext(Context);
+  const { UserPersistence, setFolders } = useContext(Context);
   const [inputPlaceholder, setInputPlaceholder] = useState("crea una carpeta");
   const [sendCreateFolder, setSendCreateFolder] = useState({
     id: "",
@@ -32,10 +32,13 @@ const CreateFolder = () => {
   const createFolder = () => {
     setInputPlaceholder("crea una carpeta");
     if (sendCreateFolder.name === "") return;
+    POST_CREATE_FOLDER(sendCreateFolder);
     setTimeout(() => {
-      POST_CREATE_FOLDER(sendCreateFolder);
-      GET_FOLDERS(User.id);
-    }, 1500);
+      GET_FOLDERS(User.id, setFolders);
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    }, 1300);
   };
 
   return (
