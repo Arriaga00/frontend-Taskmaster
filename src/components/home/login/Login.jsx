@@ -22,7 +22,7 @@ const Login = () => {
     <LoadingOutlined />;
   }
   const User =
-    UserPersistence && UserPersistence.user.id ? (
+    UserPersistence && UserPersistence.user && UserPersistence.user.id ? (
       UserPersistence.user.id
     ) : (
       <LoadingOutlined />

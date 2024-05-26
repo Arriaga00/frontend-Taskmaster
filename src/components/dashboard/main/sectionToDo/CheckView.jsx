@@ -3,7 +3,7 @@ import Context from "../../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const CheckView = () => {
-  const { Tasks } = useContext(Context);
+  const { Tasks, setOpenViewTask } = useContext(Context);
 
   if (!Tasks) {
     return <LoadingOutlined />;
@@ -28,14 +28,18 @@ const CheckView = () => {
         const viewState = state[task.status];
         const viewPriority = priority[task.priority];
         return (
-          <article key={task.id}>
+          <article
+            key={task.id}
+            className="mb-2"
+            onClick={() => setOpenViewTask(task)}
+          >
             <div className="space-y-2">
               <label
                 htmlFor="Option1"
                 className="flex  items-start gap-4 rounded-lg  p-2 transition hover:bg-[#242424] bg-[#171717] cursor-pointer"
               >
                 <div className="w-full">
-                  <strong className="font-medium text-[#707070]">
+                  <strong className="font-medium text-[#bcbcbc]">
                     {task.title}
                   </strong>
                   <div className="flex justify-between items-center">
