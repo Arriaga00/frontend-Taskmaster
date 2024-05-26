@@ -10,7 +10,6 @@ const Folders = () => {
   if (!Folders) {
     <LoadingOutlined />;
   }
-  console.log(Folders);
 
   return (
     <>
@@ -47,7 +46,7 @@ const Folders = () => {
               {folder.categories.map((category, index) => {
                 return (
                   <li key={index}>
-                    <NavLink className="block rounded-lg px-4 py-2 text-sm  hover:bg-gray-100 ] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200">
+                    <NavLink className="block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100 ] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200">
                       {category.name}
                     </NavLink>
                   </li>

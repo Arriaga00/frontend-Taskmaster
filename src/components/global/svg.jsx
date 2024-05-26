@@ -101,7 +101,7 @@ export const SvgIconSearh = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-8  text-[#242424]"
+      className="size-6  text-[#667eea]"
     >
       <path
         strokeLinecap="round"
