@@ -31,6 +31,8 @@ const Provider = ({ children }) => {
     PersistenceSession();
   }, []);
 
+  console.log(OpenViewTask);
+
   return (
     <>
       <Context.Provider

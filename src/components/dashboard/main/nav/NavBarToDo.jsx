@@ -19,7 +19,7 @@ const NavBarToDo = () => {
         </div>
         <button
           onClick={close}
-          className="w-full py-2 rounded-full hover:bg-red-500 hover:bg-opacity-20 border-red-500 ease-out duration-300 font-bold text-red-500 text-opacity-60 hover:text-red-500"
+          className="w-full py-2 rounded-lg mb-1 hover:bg-red-500 hover:bg-opacity-20 border-red-500 ease-out duration-300 font-bold text-red-500 text-opacity-60 hover:text-red-500"
         >
           Cerrar sesión
         </button>

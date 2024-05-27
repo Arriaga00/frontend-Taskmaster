@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SvgIconSearh, SvgIconView } from "../../global/svg";
 import CreateTask from "./sectionToDo/CreateTask";
 import IconCreateTask from "./sectionToDo/IconCreateTask";
 import ToDo from "./sectionToDo/ToDo";
 import { motion } from "framer-motion";
+import Context from "../../../context/Context";
+import DetailsTask from "./viewToDo/DetailsTask";
 
 const MainToDo = () => {
+  const { OpenViewTask } = useContext(Context);
   const [formTask, setFormTask] = useState(false);
 
   const openCereateTask = () => {
@@ -46,7 +49,13 @@ const MainToDo = () => {
             )}
           </section>
           <section className="w-[50%] h-full flex justify-center items-center font-bold text-[#7A7A7A] text-lg py-5 pl-5">
-            Vista de tareas <SvgIconView />
+            {OpenViewTask.length === 0 ? (
+              <p className="flex justify-center items-center gap-1">
+                Vista de tareas <SvgIconView />
+              </p>
+            ) : (
+              <DetailsTask />
+            )}
           </section>
         </main>
       </motion.section>

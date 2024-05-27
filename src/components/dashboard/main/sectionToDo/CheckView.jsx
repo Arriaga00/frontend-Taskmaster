@@ -48,12 +48,12 @@ const CheckView = () => {
                     </p>
                     <div className="flex items-center gap-1">
                       <span
-                        className={`text-sm mt-1 font-normal px-2 py-1  rounded-full ${viewState}`}
+                        className={`text-sm mt-1 font-bold px-2 py-1  rounded-full ${viewState}`}
                       >
                         {task.status}
                       </span>
                       <span
-                        className={`text-sm mt-1 font-normal px-2 py-1  rounded-full ${viewPriority}`}
+                        className={`text-sm mt-1 font-bold px-2 py-1  rounded-full ${viewPriority}`}
                       >
                         {task.priority}
                       </span>
