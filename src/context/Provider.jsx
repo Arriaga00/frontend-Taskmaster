@@ -6,6 +6,7 @@ const Provider = ({ children }) => {
   const [Folders, setFolders] = useState([]);
   const [Tasks, setTasks] = useState([]);
   const [OpenViewTask, setOpenViewTask] = useState([]);
+  const [Title, setTitle] = useState("Todas tus tareas");
 
   const PersistenceSession = () => {
     const storage = localStorage.getItem("UserData");
@@ -31,8 +32,6 @@ const Provider = ({ children }) => {
     PersistenceSession();
   }, []);
 
-  console.log(OpenViewTask);
-
   return (
     <>
       <Context.Provider
@@ -45,6 +44,8 @@ const Provider = ({ children }) => {
           setTasks,
           OpenViewTask,
           setOpenViewTask,
+          Title,
+          setTitle,
         }}
       >
         {children}

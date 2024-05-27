@@ -1,9 +1,16 @@
+import { useContext } from "react";
+import Context from "../../../../context/Context";
+
 const SearhForState = () => {
+  const { setTitle } = useContext(Context);
   return (
     <>
       <section className="w-full  flex justify-between items-center gap-2 text-sm m-2 text-[#707070]">
-        <span className=" px-2 rounded-full py-1 cursor-pointer bg-blue-500 bg-opacity-20 text-blue-400">
-          all
+        <span
+          onClick={() => setTitle("Todas tus tareas")}
+          className=" px-2 rounded-full py-1 cursor-pointer bg-blue-500 bg-opacity-20 text-blue-400"
+        >
+          Todo
         </span>
         <div className="flex  items-center gap-2 text-sm m-2 text-[#707070]">
           <span className="bg-[#242424] px-2 rounded-full py-1 cursor-pointer hover:bg-blue-500 hover:bg-opacity-15 hover:text-blue-500 ">

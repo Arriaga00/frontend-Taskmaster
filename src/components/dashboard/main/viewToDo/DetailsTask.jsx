@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import Context from "../../../../context/Context";
 import { useForm } from "react-hook-form";
+import { motion, AnimatePresence } from "framer-motion";
 
 const DetailsTask = () => {
-  const { OpenViewTask } = useContext(Context);
+  const { OpenViewTask, setOpenViewTask } = useContext(Context);
   const [inputCgrange, setInputCgrange] = useState(false);
   useEffect(() => {
     setValue("title", OpenViewTask.title);
@@ -53,186 +54,205 @@ const DetailsTask = () => {
       "text-red-500 text-opacity-50 bg-red-500 bg-opacity-10 has-[:checked]:text-opacity-100 has-[:checked]:bg-opacity-20",
     done: "text-green-500 text-opacity-50 bg-green-500 bg-opacity-10 has-[:checked]:text-opacity-100 has-[:checked]:bg-opacity-20",
   };
-
+  const variants = {
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+    hidden: { opacity: 0, scale: 0, transition: { duration: 0.5 } },
+  };
   return (
     <>
-      <section className="w-full h-full pl-5 pt-5 bg-[#171717] rounded-lg">
-        <form onSubmit={handleSubmit(modifyTask)} className="pr-5 w-full">
-          <input
-            onBlur={onChange}
-            type="text"
-            className="bg-[#171717] focus:outline-0 text-3xl font-bold h-20 flex justify-start items-center w-full"
-            {...register("title", {
-              maxLength: {
-                value: 45,
-                message: "El titulo debe tener entre 5 y 45 caracteres",
-              },
-              minLength: {
-                value: 5,
-                message: "El titulo debe tener entre 5 y 45 caracteres",
-              },
-            })}
-          />
-          {errors.title && (
-            <p className="text-red-500  text-[.8rem] font-semibold ">
-              {errors.title.message}
-            </p>
-          )}
-          <div className="relative">
-            <textarea
-              className="focus:outline-0  bg-[#242424] w-full h-72 max-h-96 p-3 resize-none rounded-lg"
-              {...register("description", {
+      <AnimatePresence>
+        <motion.section
+          initial="hidden"
+          animate="visible"
+          exit={"hidden"}
+          variants={variants}
+          className="w-full h-full pl-5 pt-5 bg-[#171717] rounded-lg relative"
+        >
+          <form onSubmit={handleSubmit(modifyTask)} className="pr-5 w-full">
+            <input
+              onBlur={onChange}
+              type="text"
+              className="bg-[#171717] focus:outline-0 text-3xl font-bold h-20 flex justify-start items-center w-full"
+              {...register("title", {
                 maxLength: {
-                  value: 1000,
-                  message: "El descripcion debe tener entre 2 y 200 caracteres",
+                  value: 45,
+                  message: "El titulo debe tener entre 5 y 45 caracteres",
                 },
                 minLength: {
-                  value: 2,
-                  message: "El descripcion debe tener entre 2 y 200 caracteres",
+                  value: 5,
+                  message: "El titulo debe tener entre 5 y 45 caracteres",
                 },
               })}
             />
-            <span
-              className={`absolute bottom-3  right-1 px-2  text-sm rounded-full bg-[#4a4a4a] bg-opacity-50 text-[#707070] `}
-            >
-              {watch("description") ? watch("description").length : 0}/1000
-            </span>
-          </div>
-          {errors.description && (
-            <p className="text-red-500  text-[.8rem] font-semibold ">
-              {errors.description.message}
-            </p>
-          )}
-          <div className="w-full flex flex-row items-center justify-between mb-3 mt-3">
-            <p className="text-sm ml-1">Prioridad:</p>
-            <div className="flex gap-2">
-              <label
-                htmlFor="low"
-                className={`text-sm font-bold px-2 py-1 rounded-full ${priority.low} cursor-pointer label_radio`}
-              >
-                low
-                <input
-                  type="radio"
-                  name="priority"
-                  value="low"
-                  id="low"
-                  className="sr-only"
-                  {...register("priority")}
-                />
-              </label>
-              <label
-                htmlFor="medium"
-                className={`text-sm font-bold px-2 py-1 rounded-full ${priority.medium} cursor-pointer label_radio `}
-              >
-                medium
-                <input
-                  type="radio"
-                  name="priority"
-                  value="medium"
-                  id="medium"
-                  className="sr-only "
-                  {...register("priority")}
-                />
-              </label>
-              <label
-                htmlFor="high"
-                className={`text-sm font-bold px-2 py-1 rounded-full ${priority.high} cursor-pointer label_radio`}
-              >
-                high
-                <input
-                  type="radio"
-                  name="priority"
-                  value="high"
-                  id="high"
-                  className="sr-only"
-                  {...register("priority")}
-                />
-              </label>
-              <label
-                htmlFor="urgent"
-                className={`text-sm font-bold px-2 py-1 rounded-full ${priority.urgent} cursor-pointer label_radio`}
-              >
-                urgent
-                <input
-                  type="radio"
-                  name="priority"
-                  value="urgent"
-                  id="urgent"
-                  className="sr-only"
-                  {...register("priority")}
-                />
-              </label>
-            </div>
-          </div>
-
-          <div className="w-full flex flex-row items-center justify-between mb-3">
-            <p className="text-sm ml-1">Estado:</p>
-            <div className="flex gap-2">
-              <label
-                htmlFor="pending"
-                className={`text-sm font-bold px-2 py-1 rounded-full ${state.pending} cursor-pointer label_radio`}
-              >
-                {" "}
-                Pending{" "}
-                <input
-                  type="radio"
-                  name="status"
-                  value="pending"
-                  id="pending"
-                  className="sr-only"
-                  {...register("status")}
-                />
-              </label>
-              <label
-                htmlFor="done"
-                className={`text-sm font-bold px-2 py-1 rounded-full ${state.done} cursor-pointer label_radio`}
-              >
-                {" "}
-                Done{" "}
-                <input
-                  type="radio"
-                  name="status"
-                  value="done"
-                  id="done"
-                  className="sr-only"
-                  {...register("status")}
-                />
-              </label>
-              <label
-                htmlFor="cancelled"
-                className={`text-sm font-bold px-2 py-1 rounded-full ${state.cancelled} cursor-pointer label_radio`}
-              >
-                {" "}
-                Cancelled{" "}
-                <input
-                  type="radio"
-                  name="status"
-                  value="cancelled"
-                  id="cancelled"
-                  className="sr-only"
-                  {...register("status")}
-                />
-              </label>
-            </div>
-          </div>
-          <div className="w-full flex flex-row items-center justify-between mb-3">
-            <p className="text-sm ml-1">Fecha de vencimiento:</p>
-            <label htmlFor="date">
-              <input
-                id="date"
-                type="date"
-                className=" bg-transparent focus:outline-0 text-sm text-[#7A7A7A]"
-                {...register("due_date")}
+            {errors.title && (
+              <p className="text-red-500  text-[.8rem] font-semibold ">
+                {errors.title.message}
+              </p>
+            )}
+            <div className="relative">
+              <textarea
+                className="focus:outline-0  bg-[#242424] w-full h-72 max-h-96 p-3 resize-none rounded-lg"
+                {...register("description", {
+                  maxLength: {
+                    value: 1000,
+                    message:
+                      "El descripcion debe tener entre 2 y 200 caracteres",
+                  },
+                  minLength: {
+                    value: 2,
+                    message:
+                      "El descripcion debe tener entre 2 y 200 caracteres",
+                  },
+                })}
               />
-            </label>
-          </div>
-          <div className="w-full h-32 flex justify-end items-center">
-            <button className="text-sm  rounded-lg bg-yellow-500 bg-opacity-10 text-yellow-500 px-2 py-2 hover:bg-opacity-20">
-              Guarda tus cambios
-            </button>
-          </div>
-        </form>
-      </section>
+              <span
+                className={`absolute bottom-3  right-1 px-2  text-sm rounded-full bg-[#4a4a4a] bg-opacity-50 text-[#707070] `}
+              >
+                {watch("description") ? watch("description").length : 0}/1000
+              </span>
+            </div>
+            {errors.description && (
+              <p className="text-red-500  text-[.8rem] font-semibold ">
+                {errors.description.message}
+              </p>
+            )}
+            <div className="w-full flex flex-row items-center justify-between mb-3 mt-3">
+              <p className="text-sm ml-1">Prioridad:</p>
+              <div className="flex gap-2">
+                <label
+                  htmlFor="low"
+                  className={`text-sm font-bold px-2 py-1 rounded-full ${priority.low} cursor-pointer label_radio`}
+                >
+                  low
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="low"
+                    id="low"
+                    className="sr-only"
+                    {...register("priority")}
+                  />
+                </label>
+                <label
+                  htmlFor="medium"
+                  className={`text-sm font-bold px-2 py-1 rounded-full ${priority.medium} cursor-pointer label_radio `}
+                >
+                  medium
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="medium"
+                    id="medium"
+                    className="sr-only "
+                    {...register("priority")}
+                  />
+                </label>
+                <label
+                  htmlFor="high"
+                  className={`text-sm font-bold px-2 py-1 rounded-full ${priority.high} cursor-pointer label_radio`}
+                >
+                  high
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="high"
+                    id="high"
+                    className="sr-only"
+                    {...register("priority")}
+                  />
+                </label>
+                <label
+                  htmlFor="urgent"
+                  className={`text-sm font-bold px-2 py-1 rounded-full ${priority.urgent} cursor-pointer label_radio`}
+                >
+                  urgent
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="urgent"
+                    id="urgent"
+                    className="sr-only"
+                    {...register("priority")}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="w-full flex flex-row items-center justify-between mb-3">
+              <p className="text-sm ml-1">Estado:</p>
+              <div className="flex gap-2">
+                <label
+                  htmlFor="pending"
+                  className={`text-sm font-bold px-2 py-1 rounded-full ${state.pending} cursor-pointer label_radio`}
+                >
+                  {" "}
+                  Pending{" "}
+                  <input
+                    type="radio"
+                    name="status"
+                    value="pending"
+                    id="pending"
+                    className="sr-only"
+                    {...register("status")}
+                  />
+                </label>
+                <label
+                  htmlFor="done"
+                  className={`text-sm font-bold px-2 py-1 rounded-full ${state.done} cursor-pointer label_radio`}
+                >
+                  {" "}
+                  Done{" "}
+                  <input
+                    type="radio"
+                    name="status"
+                    value="done"
+                    id="done"
+                    className="sr-only"
+                    {...register("status")}
+                  />
+                </label>
+                <label
+                  htmlFor="cancelled"
+                  className={`text-sm font-bold px-2 py-1 rounded-full ${state.cancelled} cursor-pointer label_radio`}
+                >
+                  {" "}
+                  Cancelled{" "}
+                  <input
+                    type="radio"
+                    name="status"
+                    value="cancelled"
+                    id="cancelled"
+                    className="sr-only"
+                    {...register("status")}
+                  />
+                </label>
+              </div>
+            </div>
+            <div className="w-full flex flex-row items-center justify-between mb-3">
+              <p className="text-sm ml-1">Fecha de vencimiento:</p>
+              <label htmlFor="date">
+                <input
+                  id="date"
+                  type="date"
+                  className=" bg-transparent focus:outline-0 text-sm text-[#7A7A7A]"
+                  {...register("due_date")}
+                />
+              </label>
+            </div>
+            <div className="w-full h-32 flex justify-end items-center">
+              <button className="text-sm  rounded-lg bg-yellow-500 bg-opacity-10 text-yellow-500 px-2 py-2 hover:bg-opacity-20">
+                Guarda tus cambios
+              </button>
+            </div>
+          </form>
+          <span
+            onClick={() => setOpenViewTask([])}
+            className="absolute -top-3  -right-2 px-2  rounded-full bg-red-500 bg-opacity-30 text-red-500 cursor-pointer"
+          >
+            x
+          </span>
+        </motion.section>
+      </AnimatePresence>
     </>
   );
 };

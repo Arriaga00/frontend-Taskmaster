@@ -35,11 +35,22 @@ const CardUser = () => {
 
   const content = (
     <>
-      <div className=" text-[#7A7A7A] text-lg font-bold border-b-2 border-[#242424] p-2">
+      <div className=" text-[#7A7A7A] text-lg font-bold border-b-2 border-[#242424] p-2 w-60">
         <p>Id : {User.id}</p>
         <p>{User.email}</p>
-        <p>{User.names}</p>
-        <p>Password : ******</p>
+        <input
+          value={User.names}
+          type="text"
+          className="focus:outline-0 bg-transparent text-[#7A7A7A]  font-bold  "
+        />
+        <p className="flex h-10 items-center">
+          Password :{" "}
+          <input
+            placeholder="********"
+            type="password"
+            className="focus:outline-0 bg-transparent text-[#7A7A7A]  font-bold  w-[60%]"
+          />
+        </p>
       </div>
       <div className="flex justify-evenly w-full pt-2">
         <div className="w-[50%] flex justify-center cursor-pointer rounded-md py-2 hover:bg-blue-500 hover:bg-opacity-20 hover:border-blue-500 ease-out duration-300">
