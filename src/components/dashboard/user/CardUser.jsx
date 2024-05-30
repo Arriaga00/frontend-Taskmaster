@@ -33,6 +33,8 @@ const CardUser = () => {
       <LoadingOutlined />
     );
 
+  console.log(User);
+
   const content = (
     <>
       <div className=" text-[#7A7A7A] text-lg font-bold border-b-2 border-[#242424] p-2 w-60">
@@ -85,6 +87,11 @@ const CardUser = () => {
             <div className="py-2 px-4 rounded-full border-2 border-[#242424]  flex justify-center items-center  drop-shadow-2xl text-center hover:bg-blue-500 hover:bg-opacity-10 hover:border-blue-500 ease-out duration-300 cursor-pointer">
               <p className="font-bold text-blue-500">{avatar}</p>
             </div>
+            {/* <img
+              src={"data:image/png;base64," + User.image}
+              alt="user"
+              className="rounded-full w-10 h-10 cursor-pointer"
+            /> */}
           </Popover>
         </Space>
       </ConfigProvider>
