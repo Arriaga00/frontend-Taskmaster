@@ -11,7 +11,6 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Context from "../../../context/Context";
-
 const Login = () => {
   const navigate = useNavigate();
   const { setUserPersistence, setFolders, UserPersistence, setTasks } =
@@ -27,13 +26,12 @@ const Login = () => {
     ) : (
       <LoadingOutlined />
     );
-
   const loginUser = (data) => {
     setLoading(true);
     POST_LOGIN(data, setLoading, navigate, setUserPersistence);
     setTimeout(() => {
-      GET_FOLDERS(User, setFolders);
-      GET_TASKS(User, setTasks);
+      GET_FOLDERS(User.id, setFolders);
+      GET_TASKS(User.id, setTasks);
     }, 2500);
   };
   const {

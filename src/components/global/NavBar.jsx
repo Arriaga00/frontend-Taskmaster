@@ -32,7 +32,7 @@ const NavBar = () => {
         <div className="flex items-center  justify-between w-48">
           <NavLink
             to={"login"}
-            className=" border-none text-[#707070] border-[#242424] px-3 py-1 hover:text-white ease-out duration-300"
+            className=" border-none text-[#707070] border-[#242424] px-3 py-1 hover:text-green-500 ease-out duration-300 font-bold"
           >
             Inicia sesión
           </NavLink>

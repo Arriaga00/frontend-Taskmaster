@@ -59,15 +59,12 @@ export const POST_LOGIN = async (
         message.error(data.msg);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const imageBase64 = data.user.image;
-      const image = "data:image/png;base64," + imageBase64;
+      // const imageBase64 = data.user.image;
+      // const image = "data:image/png;base64," + imageBase64;
 
-      console.log(image);
+      // console.log(image);
 
-      return {
-        ...data,
-        image,
-      };
+      return data;
     })
     .then((data) => {
       setUserPersistence(data);

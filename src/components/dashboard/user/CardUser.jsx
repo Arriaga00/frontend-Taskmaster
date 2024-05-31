@@ -37,7 +37,7 @@ const CardUser = () => {
 
   const content = (
     <>
-      <div className=" text-[#7A7A7A] text-lg font-bold border-b-2 border-[#242424] p-2 w-60">
+      <div className=" text-[#7A7A7A] text-lg font-bold border-b-2 border-[#242424] p-2 w-60 ">
         <p>Id : {User.id}</p>
         <p>{User.email}</p>
         <input

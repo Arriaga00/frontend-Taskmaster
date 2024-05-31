@@ -3,7 +3,7 @@ import Folders from "./Folders";
 import { motion } from "framer-motion";
 const NavBarToDo = () => {
   const close = () => {
-    window.localStorage.removeItem("userPersistence");
+    window.localStorage.clear();
     window.location.href = "/home";
   };
 

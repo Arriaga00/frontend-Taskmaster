@@ -12,7 +12,7 @@ const CardSection = () => {
     <>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 ">
         <article
-          className="block rounded-xl border border-neutral-700 p-4 shadow-sm  hover:ring-1   hover:bg-blue-500 hover:bg-opacity-10 hover:border-blue-500 ease-out duration-500"
+          className="block rounded-xl border border-neutral-700 p-4 shadow-sm  hover:ring-1 backdrop-blur-sm      hover:bg-blue-500 hover:bg-opacity-10 hover:border-blue-500 ease-out duration-500"
           href="#"
         >
           <span className="inline-block rounded-lg bg-[#242424] p-3">
@@ -27,7 +27,7 @@ const CardSection = () => {
         </article>
 
         <article
-          className="block rounded-xl border border-neutral-700 p-4 shadow-sm  hover:ring-1 -200 hover:bg-green-500 hover:bg-opacity-10 hover:border-green-500 ease-out duration-500"
+          className="block rounded-xl border border-neutral-700 p-4 shadow-sm backdrop-blur-sm  hover:ring-1 -200 hover:bg-green-500 hover:bg-opacity-10 hover:border-green-500 ease-out duration-500"
           href="#"
         >
           <span className="inline-block rounded-lg bg-[#242424] p-3">
@@ -42,7 +42,7 @@ const CardSection = () => {
         </article>
 
         <article
-          className="block rounded-xl border border-neutral-700 p-4 shadow-sm hover:bg-yellow-500 hover:bg-opacity-10 hover:border-yellow-500  ease-out duration-500"
+          className="block rounded-xl border border-neutral-700 p-4 shadow-sm backdrop-blur-sm  hover:bg-yellow-500 hover:bg-opacity-10 hover:border-yellow-500  ease-out duration-500"
           href="#"
         >
           <span className="inline-block rounded-lg bg-[#242424] p-3">
@@ -57,7 +57,7 @@ const CardSection = () => {
         </article>
 
         <article
-          className="block rounded-xl border border-neutral-700 p-4 shadow-sm  hover:bg-teal-500 hover:bg-opacity-10 hover:border-teal-500 ease-out duration-500 "
+          className="block rounded-xl border border-neutral-700 p-4 shadow-sm backdrop-blur-sm   hover:bg-teal-500 hover:bg-opacity-10 hover:border-teal-500 ease-out duration-500 "
           href="#"
         >
           <span className="inline-block rounded-lg bg-[#242424] p-3">
@@ -73,7 +73,7 @@ const CardSection = () => {
         </article>
 
         <article
-          className="block rounded-xl border border-neutral-700 p-4 shadow-sm hover:bg-violet-500 hover:bg-opacity-10 hover:border-violet-500 ease-out duration-500 "
+          className="block rounded-xl border border-neutral-700 p-4 shadow-sm backdrop-blur-sm   hover:bg-violet-500 hover:bg-opacity-10 hover:border-violet-500 ease-out duration-500 "
           href="#"
         >
           <span className="inline-block rounded-lg bg-[#242424] p-3">
@@ -88,7 +88,7 @@ const CardSection = () => {
         </article>
 
         <article
-          className="block rounded-xl border border-neutral-700 p-4 shadow-sm hover:bg-amber-500 hover:bg-opacity-10 hover:border-amber-500  ease-out duration-500 "
+          className="block rounded-xl border border-neutral-700 p-4 shadow-sm backdrop-blur-sm  hover:bg-amber-500 hover:bg-opacity-10 hover:border-amber-500  ease-out duration-500 "
           href="#"
         >
           <span className="inline-block rounded-lg bg-[#242424] p-3">

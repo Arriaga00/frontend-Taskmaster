@@ -22,7 +22,7 @@ const MainToDo = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 3 }}
-          className="w-full h-full p-5  text-xl font-bold sectionTodo"
+          className="w-full h-full p-5  text-xl font-bold sectionTodo "
         >
           <div className=" w-full border-b border-b-[#242424] flex justify-between items-center">
             <motion.h1 className=" h-10 flex justify-start  text-3xl items-center gradient-text  w-[80%]">
