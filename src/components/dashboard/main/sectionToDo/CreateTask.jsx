@@ -1,30 +1,34 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { motion } from "framer-motion";
+import Context from "../../../../context/Context";
 
 const CreateTask = ({ closeCereateTask }) => {
+  const { createTask, setCreateTask } = useContext(Context);
   const { register, handleSubmit } = useForm();
 
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+
+  const todayDate = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+
   const registerTask = (data) => {
+    const newTask = {
+      ...createTask,
+      title: data.title,
+      description: data.description,
+      priority: data.priority,
+      due_date: todayDate,
+    };
+    setCreateTask(newTask);
     console.table(data);
   };
 
-  const variants = {
-    closed: {
-      opacity: 0,
-    },
-    open: {
-      opacity: 1,
-    },
-  };
-
   return (
-    <motion.div
-      initial="closed"
-      animate="open"
-      transition={{ duration: 0.2 }}
-      variants={variants}
-      className=" bottom-0 left-0 right-0 absolute "
-    >
+    <div className=" bottom-0 left-0 right-0 absolute ">
       <div className=" static  w-[97%] flex  items-center mb-2 p-3  border border-[#242424] rounded-lg shadow-lg backdrop-blur-[4px] glass bg-[rgba(255,255,255,0)]">
         <form
           onSubmit={handleSubmit(registerTask)}
@@ -61,9 +65,6 @@ const CreateTask = ({ closeCereateTask }) => {
                 required: true,
               })}
             >
-              <option value="Priority" selected disabled className="text-sm">
-                Priority
-              </option>
               <option className="font-bold text-blue-500  " value="low">
                 low
               </option>
@@ -77,7 +78,10 @@ const CreateTask = ({ closeCereateTask }) => {
                 urgent
               </option>
             </select>
-            <button className="text-sm w-full text-green-500 border border-[#242424] px-2 py-1 rounded-lg hover:bg-green-500 hover:bg-opacity-10">
+            <button
+              type="submit"
+              className="text-sm w-full text-green-500 border border-[#242424] px-2 py-1 rounded-lg hover:bg-green-500 hover:bg-opacity-10"
+            >
               Crear
             </button>
           </div>
@@ -89,7 +93,7 @@ const CreateTask = ({ closeCereateTask }) => {
           x
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

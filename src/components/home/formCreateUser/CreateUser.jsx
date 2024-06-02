@@ -1,10 +1,12 @@
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { POST_SIGNUP } from "../../../fetch/getAndPostHome";
 import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../../global/NavBar";
+import Footer from "../../global/Footer";
 
 const CreateUser = () => {
   const navigate = useNavigate();
@@ -28,11 +30,12 @@ const CreateUser = () => {
 
   return (
     <>
-      <motion.section
-        transition={{ duration: 0.5 }}
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        exit={{ opacity: 0 }}
+      <NavBar />
+      <section
+        // transition={{ duration: 0.5 }}
+        // animate={{ opacity: 1 }}
+        // initial={{ opacity: 0 }}
+        // exit={{ opacity: 0 }}
         className="flex flex-col items-center justify-center h-[42rem] w-full mb-28"
       >
         <h1 className="text-4xl font-bold">Ingresa tus datos</h1>
@@ -144,7 +147,8 @@ const CreateUser = () => {
             Inicia sesión
           </NavLink>
         </p>
-      </motion.section>
+      </section>
+      <Footer />
     </>
   );
 };

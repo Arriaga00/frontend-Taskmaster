@@ -8,7 +8,7 @@ const RoutesPublic = () => {
     <>
       <main>
         <Routes>
-          <Route path="/" element={<SectionHome />} />
+          <Route path="/home" element={<SectionHome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<CreateUser />} />
         </Routes>

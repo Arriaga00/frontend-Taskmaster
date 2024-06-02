@@ -5,11 +5,38 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 
 const Folders = () => {
-  const { Folders, setTitle } = useContext(Context);
+  const {
+    Folders,
+    setTitle,
+    setCreateTask,
+    createTask,
+    UserPersistence,
+    setFilterTask,
+    Tasks,
+  } = useContext(Context);
 
   if (!Folders) {
     <LoadingOutlined />;
   }
+
+  if (UserPersistence) {
+    <LoadingOutlined />;
+  }
+
+  const id = UserPersistence && UserPersistence.user && UserPersistence.user.id;
+
+  const handleChange = (categoryId) => {
+    setCreateTask({
+      ...createTask,
+      id_user: id,
+      id_categories: categoryId,
+    });
+  };
+
+  const filterForCategory = (categoryId) => {
+    const filterForID = Tasks.filter((task) => task.id === categoryId);
+    setFilterTask(filterForID);
+  };
 
   return (
     <>
@@ -51,8 +78,14 @@ const Folders = () => {
                 return (
                   <li key={index}>
                     <NavLink
-                      onClick={() => setTitle(`${nameFolder}/${category.name}`)}
-                      className="block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100 ] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200"
+                      onClick={() => {
+                        handleChange(category.id);
+                        setTitle(`${nameFolder}/${category.name}`);
+                        filterForCategory(category.id);
+                      }}
+                      className={
+                        "block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100 ] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200"
+                      }
                     >
                       {category.name}
                     </NavLink>

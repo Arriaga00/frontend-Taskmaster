@@ -7,6 +7,22 @@ const Provider = ({ children }) => {
   const [Tasks, setTasks] = useState([]);
   const [OpenViewTask, setOpenViewTask] = useState([]);
   const [Title, setTitle] = useState("Todas tus tareas");
+  const [loading, setLoading] = useState(false);
+
+  //filrado de tareas
+  const [filterTask, setFilterTask] = useState([]);
+  const [filterState, setFilterState] = useState("");
+
+  const [createTask, setCreateTask] = useState({
+    id_user: "",
+    id_categories: "",
+    title: "",
+    description: "",
+    status: "pending",
+    priority: "",
+    tags: "",
+    due_date: "",
+  });
 
   const PersistenceSession = () => {
     const storage = localStorage.getItem("UserData");
@@ -25,12 +41,15 @@ const Provider = ({ children }) => {
     if (storageTasks) {
       const tasks = JSON.parse(storageTasks);
       setTasks(tasks);
+      setFilterTask(tasks);
     }
   };
 
   useEffect(() => {
     PersistenceSession();
   }, []);
+
+  console.log(createTask);
 
   return (
     <>
@@ -46,6 +65,14 @@ const Provider = ({ children }) => {
           setOpenViewTask,
           Title,
           setTitle,
+          loading,
+          setLoading,
+          createTask,
+          setCreateTask,
+          filterTask,
+          setFilterTask,
+          filterState,
+          setFilterState,
         }}
       >
         {children}

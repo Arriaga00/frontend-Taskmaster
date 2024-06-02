@@ -1,16 +1,16 @@
 import { NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 const NavBar = () => {
   return (
     <>
-      <motion.nav
-        initial={{ y: -250 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 1.5 }}
+      <nav
+        // initial={{ opacity: 0 }}
+        // animate={{ opacity: 1 }}
+        // transition={{ duration: 1.5 }}
         className="w-full flex justify-between items-center px-3 py-5 "
       >
         <NavLink
-          to={"/home"}
+          to={"/"}
           className="font-bold text-3xl cursor-pointer titulo hover:scale-110 transition-all duration-300 flex items-center gap-2"
         >
           Task Master
@@ -31,19 +31,19 @@ const NavBar = () => {
         </NavLink>
         <div className="flex items-center  justify-between w-48">
           <NavLink
-            to={"login"}
+            to={"/login"}
             className=" border-none text-[#707070] border-[#242424] px-3 py-1 hover:text-green-500 ease-out duration-300 font-bold"
           >
             Inicia sesión
           </NavLink>
           <NavLink
-            to={"signup"}
+            to={"/signup"}
             className="border rounded-md border-[#242424]  bg-[#242424] text-white px-3 py-1 font-bold hover:bg-[#000000] hover:text-yellow-500 ease-out duration-500"
           >
             Únete
           </NavLink>
         </div>
-      </motion.nav>
+      </nav>
     </>
   );
 };

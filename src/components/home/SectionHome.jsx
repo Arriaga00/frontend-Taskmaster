@@ -1,15 +1,15 @@
 import { NavLink } from "react-router-dom";
 import CardSection from "./CardSection";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 const SectionHome = () => {
   return (
     <>
-      <motion.section
-        transition={{ duration: 1.5 }}
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        exit={{ opacity: 0 }}
+      <section
+        // transition={{ duration: 1.5 }}
+        // animate={{ opacity: 1 }}
+        // initial={{ opacity: 0 }}
+        // exit={{ opacity: 0 }}
         className="w-full flex justify-center items-center mt-32 mb-32"
       >
         <div className="max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
@@ -37,7 +37,7 @@ const SectionHome = () => {
             <CardSection />
           </div>
         </div>
-      </motion.section>
+      </section>
     </>
   );
 };

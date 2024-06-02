@@ -3,9 +3,9 @@ import Context from "../../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const CheckView = () => {
-  const { Tasks, setOpenViewTask } = useContext(Context);
+  const { filterTask, setOpenViewTask } = useContext(Context);
 
-  if (!Tasks) {
+  if (!filterTask) {
     return <LoadingOutlined />;
   }
 
@@ -24,47 +24,50 @@ const CheckView = () => {
 
   return (
     <>
-      {Tasks.map((task) => {
-        const viewState = state[task.status];
-        const viewPriority = priority[task.priority];
-        return (
-          <article
-            key={task.id}
-            className="mb-2"
-            onClick={() => setOpenViewTask(task)}
-          >
-            <div className="space-y-2">
-              <label
-                htmlFor="Option1"
-                className="flex  items-start gap-4 rounded-lg  p-2 transition hover:bg-[#242424] bg-[#171717] cursor-pointer"
-              >
-                <div className="w-full">
-                  <strong className="font-medium text-[#bcbcbc]">
-                    {task.title}
-                  </strong>
-                  <div className="flex justify-between items-center">
-                    <p className="mt-1 text-pretty text-sm text-[#707070] line-clamp-1 ">
-                      {task.description}
-                    </p>
-                    <div className="flex items-center gap-1">
-                      <span
-                        className={`text-sm mt-1 font-bold px-2 py-1  rounded-full ${viewState}`}
-                      >
-                        {task.status}
-                      </span>
-                      <span
-                        className={`text-sm mt-1 font-bold px-2 py-1  rounded-full ${viewPriority}`}
-                      >
-                        {task.priority}
-                      </span>
+      {filterTask.length === 0 ? (
+        <p className="text-center text-[#707070] text-lg h-full flex justify-center items-center w-full mt-72">
+          No hay tareas pendientes
+        </p>
+      ) : (
+        filterTask.map((task) => {
+          const viewState = state[task.status];
+          const viewPriority = priority[task.priority];
+          return (
+            <article
+              key={task.id}
+              className="mb-2"
+              onClick={() => setOpenViewTask(task)}
+            >
+              <div className="space-y-2">
+                <label className="flex  items-start gap-4 rounded-lg  p-2 transition hover:bg-[#242424] bg-[#171717] cursor-pointer">
+                  <div className="w-full">
+                    <strong className="font-medium text-[#bcbcbc]">
+                      {task.title}
+                    </strong>
+                    <div className="flex justify-between items-center">
+                      <p className="mt-1 text-pretty text-sm text-[#707070] line-clamp-1 ">
+                        {task.description}
+                      </p>
+                      <div className="flex items-center gap-1">
+                        <span
+                          className={`text-sm mt-1 font-bold px-2 py-1  rounded-full ${viewState}`}
+                        >
+                          {task.status}
+                        </span>
+                        <span
+                          className={`text-sm mt-1 font-bold px-2 py-1  rounded-full ${viewPriority}`}
+                        >
+                          {task.priority}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </label>
-            </div>
-          </article>
-        );
-      })}
+                </label>
+              </div>
+            </article>
+          );
+        })
+      )}
     </>
   );
 };

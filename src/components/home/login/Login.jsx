@@ -1,54 +1,78 @@
 /* eslint-disable no-useless-escape */
-import { NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {
-  POST_LOGIN,
-  GET_FOLDERS,
-  GET_TASKS,
-} from "../../../fetch/getAndPostHome";
 import { LoadingOutlined } from "@ant-design/icons";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import Context from "../../../context/Context";
+import NavBar from "../../global/NavBar";
+import Footer from "../../global/Footer";
+import { message } from "antd";
 const Login = () => {
-  const navigate = useNavigate();
-  const { setUserPersistence, setFolders, UserPersistence, setTasks } =
-    useContext(Context);
-  const [loading, setLoading] = useState(false);
+  const {
+    loading,
+    setLoading,
+    setUserPersistence,
+    setFolders,
+    setTasks,
+    setFilterTask,
+  } = useContext(Context);
 
-  if (!UserPersistence) {
-    <LoadingOutlined />;
-  }
-  const User =
-    UserPersistence && UserPersistence.user && UserPersistence.user.id ? (
-      UserPersistence.user.id
-    ) : (
-      <LoadingOutlined />
-    );
-  const loginUser = (data) => {
-    setLoading(true);
-    POST_LOGIN(data, setLoading, navigate, setUserPersistence);
-    setTimeout(() => {
-      GET_FOLDERS(User.id, setFolders);
-      GET_TASKS(User.id, setTasks);
-    }, 2500);
-  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+
+  const loginUser = (data) => {
+    setLoading(true);
+    fetch("http://localhost:3000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUserPersistence(data);
+        window.localStorage.setItem("loguinUser", true);
+        window.localStorage.setItem("UserData", JSON.stringify(data));
+        message.success("se registro correctamente");
+        const id = data.user.id;
+        fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setFolders(data);
+            window.localStorage.setItem("Folders", JSON.stringify(data));
+            message.success("se cargado correctamente las carpetas");
+            // console.log(data);
+            fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+              .then((response) => response.json())
+              .then((data) => {
+                setTasks(data);
+                setFilterTask(data);
+                window.localStorage.setItem("Task", JSON.stringify(data));
+                window.localStorage.setItem("filterTask", JSON.stringify(data));
+                message.success("se cargado correctamente las tareras");
+                // console.log(data);
+              });
+          });
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+        navigate("/dashboard");
+      });
+  };
 
   return (
     <>
-      <motion.section
-        transition={{ duration: 0.5 }}
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        exit={{ opacity: 0 }}
-        className="flex flex-col items-center justify-center h-[42rem] w-full mb-28"
-      >
+      <NavBar />
+      <section className="flex flex-col items-center justify-center h-[42rem] w-full mb-28">
         <h1 className="text-4xl font-bold">Inicia sesión</h1>
         <form
           onSubmit={handleSubmit(loginUser)}
@@ -113,7 +137,8 @@ const Login = () => {
             Regístrate
           </NavLink>
         </p>
-      </motion.section>
+      </section>
+      <Footer />
     </>
   );
 };
