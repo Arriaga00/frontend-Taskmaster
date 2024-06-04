@@ -22,7 +22,7 @@ const SearhForState = () => {
         >
           Todo
         </span>
-        <div>
+        <div className="flex gap-2">
           <span
             onClick={() => filterForStatus("pending")}
             className="bg-[#242424] px-2 rounded-full py-1 cursor-pointer hover:bg-blue-500 hover:bg-opacity-15 hover:text-blue-500"

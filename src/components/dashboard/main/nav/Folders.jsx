@@ -3,6 +3,7 @@ import CreateCategory from "./CreateCategory";
 import Context from "../../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
+import { SvgDeletet } from "../../../global/svg";
 
 const Folders = () => {
   const {
@@ -32,11 +33,14 @@ const Folders = () => {
       id_categories: categoryId,
     });
   };
-
   const filterForCategory = (categoryId) => {
-    const filterForID = Tasks.filter((task) => task.id === categoryId);
+    const filterForID = Tasks.filter(
+      (task) => task.id_categories === categoryId
+    );
     setFilterTask(filterForID);
   };
+
+  // const deleteCategory = (categoryId) => {};
 
   return (
     <>
@@ -82,12 +86,21 @@ const Folders = () => {
                         handleChange(category.id);
                         setTitle(`${nameFolder}/${category.name}`);
                         filterForCategory(category.id);
+                        console.table(category.id);
                       }}
                       className={
-                        "block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100 ] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200"
+                        "block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100  dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer relative category"
                       }
                     >
                       {category.name}
+
+                      <p
+                        // onClick={() => deleteCategory(category.id)}
+                        className="absolute -right-8 -bottom-2 font-extrabold svg-hover p-2"
+                      >
+                        <SvgDeletet />
+                        {/* <LoadingOutlined /> */}
+                      </p>
                     </NavLink>
                   </li>
                 );

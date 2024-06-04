@@ -49,8 +49,6 @@ const Provider = ({ children }) => {
     PersistenceSession();
   }, []);
 
-  console.log(createTask);
-
   return (
     <>
       <Context.Provider

@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Context from "../../../../context/Context";
+import { GET_TASKS } from "../../../../fetch/getAndPostHome";
 
 const CreateTask = ({ closeCereateTask }) => {
-  const { createTask, setCreateTask } = useContext(Context);
-  const { register, handleSubmit } = useForm();
+  const { createTask, setCreateTask, setTasks } = useContext(Context);
+  const { register, handleSubmit, reset } = useForm();
 
   const today = new Date();
   const year = today.getFullYear();
@@ -24,7 +25,21 @@ const CreateTask = ({ closeCereateTask }) => {
       due_date: todayDate,
     };
     setCreateTask(newTask);
-    console.table(data);
+    fetch("http://localhost:3000/api/tasks/save-task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTask),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        GET_TASKS(newTask.id_user, setTasks);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    reset();
   };
 
   return (

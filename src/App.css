@@ -32,3 +32,10 @@
 
 
 
+.svg-hover {
+  display: none;
+}
+
+.category:hover .svg-hover {
+  display: block;
+}

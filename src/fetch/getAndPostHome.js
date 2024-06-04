@@ -1,24 +1,24 @@
 import { message } from "antd";
 
-// export const GET_TASKS = async (id, setTasks) => {
-//   return await fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
-//     .then(async (response) => {
-//       const data = await response.json();
-//       if (!response.ok) {
-//         message.error(data.msg);
-//         throw new Error(`HTTP error! status: ${response.status}`);
-//       }
-//       return data;
-//     })
-//     .then((data) => {
-//       window.localStorage.setItem("Task", JSON.stringify(data));
-//       setTasks(data);
-//       console.table(data);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
+export const GET_TASKS = async (id, setTasks) => {
+  return await fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+    .then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+        message.error(data.msg);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return data;
+    })
+    .then((data) => {
+      window.localStorage.setItem("Task", JSON.stringify(data));
+      setTasks(data);
+      console.table(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 export const GET_FOLDERS = async (id, setFolders) => {
   return await fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
@@ -158,3 +158,37 @@ export const POST_CREATE_FOLDER = async (data) => {
       console.log(error);
     });
 };
+
+export const DELETE_CATEGORY = async (id) => {
+  return await fetch(`http://localhost:3000/api/categories/delete-category`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  }).then((response) => response.json());
+};
+
+// export const DELETE_FOLDER = async (id) => {
+//   return await fetch(`http://localhost:3000/api/categories/delete-category`,{
+//     method: "DELETE",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({id}),
+//   })
+//     .then(async (response) => {
+//       const data = await response.json();
+//       if (!response.ok) {
+//         message.error(data.msg);
+//         throw new Error(`HTTP error! status: ${response.status}`);
+//       }
+//       return data;
+//     })
+//     .then(() => {
+//       window.localStorage.removeItem("Folders");
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
