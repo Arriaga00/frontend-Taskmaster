@@ -20,18 +20,15 @@ const CreateCategory = ({ folder }) => {
       id: folder.id,
       name: e.target.value,
     });
-    console.log(folder.id);
   };
 
   const createCategories = () => {
     setInputPlaceholder("crea una categoria");
     if (sendCreateFolder.name === "") return;
-    POST_CREATE_CATEGORY(sendCreateFolder);
+
+    POST_CREATE_CATEGORY(sendCreateFolder, folder.id, setFolders);
     setTimeout(() => {
       GET_FOLDERS(folder.id, setFolders);
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
     }, 1500);
   };
 

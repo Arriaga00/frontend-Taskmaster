@@ -13,6 +13,7 @@ const Provider = ({ children }) => {
   const [filterTask, setFilterTask] = useState([]);
   const [filterState, setFilterState] = useState("");
 
+  // crear tarea
   const [createTask, setCreateTask] = useState({
     id_user: "",
     id_categories: "",
@@ -23,6 +24,9 @@ const Provider = ({ children }) => {
     tags: "",
     due_date: "",
   });
+
+  // modal de eliminar tarea
+  const [modalDelete, setModalDelete] = useState(false);
 
   const PersistenceSession = () => {
     const storage = localStorage.getItem("UserData");
@@ -71,6 +75,8 @@ const Provider = ({ children }) => {
           setFilterTask,
           filterState,
           setFilterState,
+          modalDelete,
+          setModalDelete,
         }}
       >
         {children}

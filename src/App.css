@@ -39,3 +39,13 @@
 .category:hover .svg-hover {
   display: block;
 }
+
+
+.scrollCss::-webkit-scrollbar {
+  width: 1px ;
+}
+
+.scrollCss::-webkit-scrollbar-thumb{
+  background-color: #242424;
+  border-radius: 10px;
+}

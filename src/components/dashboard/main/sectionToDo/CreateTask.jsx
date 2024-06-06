@@ -5,7 +5,12 @@ import { GET_TASKS } from "../../../../fetch/getAndPostHome";
 
 const CreateTask = ({ closeCereateTask }) => {
   const { createTask, setCreateTask, setTasks } = useContext(Context);
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const today = new Date();
   const year = today.getFullYear();
@@ -43,8 +48,8 @@ const CreateTask = ({ closeCereateTask }) => {
   };
 
   return (
-    <div className=" bottom-0 left-0 right-0 absolute ">
-      <div className=" static  w-[97%] flex  items-center mb-2 p-3  border border-[#242424] rounded-lg shadow-lg backdrop-blur-[4px] glass bg-[rgba(255,255,255,0)]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 w-full">
+      <div className="flex  items-center mb-2 p-3  border border-[#242424] rounded-lg shadow-lg backdrop-blur-sm bg-black w-[40rem]">
         <form
           onSubmit={handleSubmit(registerTask)}
           className="w-full flex  gap-2"
@@ -52,30 +57,54 @@ const CreateTask = ({ closeCereateTask }) => {
           <div className="flex flex-col gap-2 w-full ">
             <input
               type="text"
-              className="text-[#7A7A7A] w-full  placeholder-[#7A7A7A] focus:outline-0 bg-transparent backdrop-blur-[4px] shadow-lg"
+              className="text-[#7A7A7A] w-full  placeholder-[#7A7A7A] focus:outline-0 bg-transparent "
               placeholder="Titulo"
               {...register("title", {
                 required: true,
-                minLength: 3,
-                maxLength: 20,
+                minLength: {
+                  value: 5,
+                  message: "El titulo debe tener entre 5 y 40 caracteres",
+                },
+                maxLength: {
+                  value: 50,
+                  message: "El titulo debe tener entre 5 y 40 caracteres",
+                },
               })}
             />
-            <input
+            {errors.title && (
+              <p className="text-red-500  text-[.8rem] font-semibold">
+                {errors.title.message}
+              </p>
+            )}
+            <textarea
               type="text"
-              className="text-[#7A7A7A] text-sm w-full placeholder-[#7A7A7A] focus:outline-0 bg-transparent backdrop-blur-[4px] shadow-lg"
+              className="text-[#7A7A7A] text-sm w-full placeholder-[#7A7A7A]  focus:outline-0   h-52 bg-[#181818] rounded-lg  p-2 resize-none"
               placeholder="Descripción"
               {...register("description", {
                 required: true,
-                minLength: 3,
-                maxLength: 200,
+                minLength: {
+                  value: 5,
+                  message:
+                    "La descripción debe tener entre 5 y 1000 caracteres",
+                },
+                maxLength: {
+                  value: 1000,
+                  message:
+                    "La descripción debe tener entre 5 y 1000 caracteres",
+                },
               })}
             />
+            {errors.description && (
+              <p className="text-red-500  text-[.8rem] font-semibold">
+                {errors.description.message}
+              </p>
+            )}
           </div>
-          <div className="flex flex-col gap-2 items-center h-full ">
+          <div className="flex flex-col gap-2 items-betwe h- justify-between">
             <select
               name="priority"
               id="priority"
-              className="bg-black text-[#7A7A7A] text-sm font-bold p-1 cursor-pointer"
+              className="bg-transparent text-[#7A7A7A] text-sm font-bold p-1 cursor-pointer "
               {...register("priority", {
                 required: true,
               })}
@@ -93,10 +122,7 @@ const CreateTask = ({ closeCereateTask }) => {
                 urgent
               </option>
             </select>
-            <button
-              type="submit"
-              className="text-sm w-full text-green-500 border border-[#242424] px-2 py-1 rounded-lg hover:bg-green-500 hover:bg-opacity-10"
-            >
+            <button className="text-sm w-full text-green-500 bg-green-500 bg-opacity-15 px-2 py-2 rounded-md  hover:bg-green-500 hover:bg-opacity-30">
               Crear
             </button>
           </div>

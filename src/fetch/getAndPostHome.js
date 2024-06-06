@@ -111,7 +111,7 @@ export const POST_SIGNUP = async (data, setLoading, navigate) => {
     });
 };
 
-export const POST_CREATE_CATEGORY = async (data) => {
+export const POST_CREATE_CATEGORY = async (data, id, setFolders) => {
   return await fetch("http://localhost:3000/api/categories/save-category", {
     method: "POST",
     headers: {
@@ -129,6 +129,9 @@ export const POST_CREATE_CATEGORY = async (data) => {
     })
     .then(() => {
       window.localStorage.removeItem("Folders");
+    })
+    .then(() => {
+      GET_FOLDERS(id, setFolders);
     })
     .catch((error) => {
       console.log(error);

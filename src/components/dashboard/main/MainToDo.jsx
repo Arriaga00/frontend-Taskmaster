@@ -8,7 +8,7 @@ import Context from "../../../context/Context";
 import DetailsTask from "./viewToDo/DetailsTask";
 
 const MainToDo = () => {
-  const { OpenViewTask, Title, setCreateTask } = useContext(Context);
+  const { OpenViewTask, Title } = useContext(Context);
   const [formTask, setFormTask] = useState(false);
 
   const openCereateTask = () => {
@@ -37,7 +37,7 @@ const MainToDo = () => {
           </div>
         </div>
         <main className="w-full h-[97%] flex mainTodo">
-          <section className="w-[50%] h-full border-r border-r-[#242424] py-5 pr-5 relative overflow-y-auto pt-0">
+          <section className="w-[50%] h-full border-r border-r-[#242424] py-5 pr-5 relative overflow-y-auto pt-0 overflow-y scrollCss ">
             <ToDo />
             {formTask ? (
               <CreateTask closeCereateTask={openCereateTask} />

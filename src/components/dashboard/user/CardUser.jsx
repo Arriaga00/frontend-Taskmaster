@@ -3,9 +3,10 @@ import { useContext } from "react";
 import { SvgIconDelete, SvgIconEdit } from "../../../components/global/svg";
 import Context from "../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
+import ModalDelete from "../../global/ModalDelete";
 
 const CardUser = () => {
-  const { UserPersistence } = useContext(Context);
+  const { UserPersistence, setModalDelete, modalDelete } = useContext(Context);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -17,6 +18,7 @@ const CardUser = () => {
   };
 
   const deleted = () => {
+    setModalDelete(true);
     console.log("deleted");
   };
 
@@ -45,14 +47,6 @@ const CardUser = () => {
               value={User.names}
               type="text"
               className="focus:outline-0 bg-transparent text-[#7A7A7A]  font-bold w-full "
-            />
-
-            <input
-              onChange={handleChange}
-              value={User.names}
-              placeholder="*****"
-              type="password"
-              className="focus:outline-0 bg-transparent text-[#7A7A7A]  font-bold  w-full"
             />
           </div>
         )}
@@ -83,13 +77,14 @@ const CardUser = () => {
 
         {isMenuOpen && (
           <div
-            className="absolute end-0 z-10 mt-2 w-[16rem] rounded-md border   border-[#242424] backdrop-blur-md "
+            className="absolute end-0 -right-10 z-10 mt-2 w-[15rem] rounded-xl border   border-[#242424] backdrop-blur-md  "
             role="menu"
           >
             {content}
           </div>
         )}
       </div>
+      {modalDelete && <ModalDelete name="Tarea" id="1" />}
     </>
   );
 };

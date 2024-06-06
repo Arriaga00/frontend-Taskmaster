@@ -12,7 +12,7 @@ const SearhForState = () => {
 
   return (
     <>
-      <section className="w-full  flex justify-between items-center gap-2 text-sm m-2 text-[#707070] my-3">
+      <section className="w-full  flex justify-between items-center gap-2 text-sm m-2 text-[#707070] my-3 ">
         <span
           onClick={() => {
             setTitle("Todas tus tareas");

@@ -4,7 +4,7 @@ import SearhForState from "./SearhForState";
 const ToDo = () => {
   return (
     <>
-      <section className="">
+      <section>
         <SearhForState />
         <CheckView />
       </section>
