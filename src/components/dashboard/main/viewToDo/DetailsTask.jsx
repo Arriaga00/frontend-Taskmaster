@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import Context from "../../../../context/Context";
 import { useForm } from "react-hook-form";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const DetailsTask = () => {
-  const { OpenViewTask, setOpenViewTask } = useContext(Context);
+  const { OpenViewTask, setOpenViewTask, setTasks, UserPersistence } =
+    useContext(Context);
   const [inputCgrange, setInputCgrange] = useState(false);
   useEffect(() => {
     setValue("title", OpenViewTask.title);
@@ -28,13 +30,45 @@ const DetailsTask = () => {
     watch,
   } = useForm();
 
+  if (!UserPersistence) {
+    return <LoadingOutlined />;
+  }
+
+  const User =
+    UserPersistence.user && UserPersistence.user.id
+      ? UserPersistence.user.id
+      : undefined;
+
   const onChange = () => {
     console.log(inputCgrange);
     setInputCgrange(true);
   };
 
   const modifyTask = (data) => {
-    console.log(data);
+    const updateTask = { id: OpenViewTask.id, ...data };
+    console.table(updateTask);
+
+    fetch(`http://localhost:3000/api/tasks/update-task`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateTask),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        fetch(`http://localhost:3000/api/tasks/consult-tasks/${User}`)
+          .then((response) => response.json())
+          .then((data) => {
+            window.localStorage.setItem("Task", JSON.stringify(data));
+            setTasks(data);
+            console.table(data);
+            window.location.reload();
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const priority = {

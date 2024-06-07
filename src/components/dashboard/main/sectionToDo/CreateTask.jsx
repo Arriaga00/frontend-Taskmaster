@@ -4,7 +4,7 @@ import Context from "../../../../context/Context";
 import { GET_TASKS } from "../../../../fetch/getAndPostHome";
 
 const CreateTask = ({ closeCereateTask }) => {
-  const { createTask, setCreateTask, setTasks } = useContext(Context);
+  const { createTask, setCreateTask, setTasks, Title } = useContext(Context);
   const {
     register,
     handleSubmit,
@@ -29,6 +29,7 @@ const CreateTask = ({ closeCereateTask }) => {
       priority: data.priority,
       due_date: todayDate,
     };
+    console.table(newTask);
     setCreateTask(newTask);
     fetch("http://localhost:3000/api/tasks/save-task", {
       method: "POST",
@@ -40,16 +41,23 @@ const CreateTask = ({ closeCereateTask }) => {
       .then((res) => res.json())
       .then(() => {
         GET_TASKS(newTask.id_user, setTasks);
+        closeCereateTask();
+        reset();
       })
       .catch((err) => {
         console.log(err);
       });
-    reset();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 w-full">
-      <div className="flex  items-center mb-2 p-3  border border-[#242424] rounded-lg shadow-lg backdrop-blur-sm bg-black w-[40rem]">
+      <div className="flex flex-col items-start mb-2 p-3  border border-[#242424] rounded-lg shadow-lg backdrop-blur-sm bg-black w-[40rem]">
+        <h2 className="mb-2 text-[#747474]">
+          Esta tarea se creara en la categoria{" "}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+            {Title}
+          </span>
+        </h2>
         <form
           onSubmit={handleSubmit(registerTask)}
           className="w-full flex  gap-2"
@@ -57,7 +65,7 @@ const CreateTask = ({ closeCereateTask }) => {
           <div className="flex flex-col gap-2 w-full ">
             <input
               type="text"
-              className="text-[#7A7A7A] w-full  placeholder-[#7A7A7A] focus:outline-0 bg-transparent "
+              className="text-[#a0a0a0] w-full  placeholder-[#a0a0a0] focus:outline-0 bg-transparent "
               placeholder="Titulo"
               {...register("title", {
                 required: true,
@@ -66,7 +74,7 @@ const CreateTask = ({ closeCereateTask }) => {
                   message: "El titulo debe tener entre 5 y 40 caracteres",
                 },
                 maxLength: {
-                  value: 50,
+                  value: 40,
                   message: "El titulo debe tener entre 5 y 40 caracteres",
                 },
               })}

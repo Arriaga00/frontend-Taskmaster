@@ -6,7 +6,6 @@ const SearhForState = () => {
 
   const filterForStatus = (status) => {
     const filterForStatus = Tasks.filter((task) => task.status === status);
-    console.log(filterForStatus);
     setFilterTask(filterForStatus);
   };
 
