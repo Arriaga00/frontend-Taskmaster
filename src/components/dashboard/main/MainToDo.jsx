@@ -10,9 +10,14 @@ import DetailsTask from "./viewToDo/DetailsTask";
 const MainToDo = () => {
   const { OpenViewTask, Title } = useContext(Context);
   const [formTask, setFormTask] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const openCereateTask = () => {
     setFormTask(!formTask);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
   };
 
   return (
@@ -27,7 +32,8 @@ const MainToDo = () => {
             <label htmlFor="search" className="flex items-center gap-1">
               <SvgIconSearh />
               <input
-                // onChange={(e) => setCreateTask(e.target.value)}
+                value={searchValue}
+                onChange={handleSearchChange}
                 id="search"
                 type="text"
                 placeholder="buscar"

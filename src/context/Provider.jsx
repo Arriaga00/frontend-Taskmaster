@@ -50,8 +50,6 @@ const Provider = ({ children }) => {
     PersistenceSession();
   }, []);
 
-  console.log(UserPersistence.user);
-
   return (
     <>
       <Context.Provider
