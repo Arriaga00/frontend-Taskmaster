@@ -2,13 +2,11 @@ import { useContext, useState } from "react";
 import { SvgIconFolder } from "../../../global/svg";
 import Context from "../../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
-import {
-  GET_FOLDERS,
-  POST_CREATE_FOLDER,
-} from "../../../../fetch/getAndPostHome";
+import { GET_FOLDERS } from "../../../../fetch/getAndPostHome";
 
 const CreateFolder = () => {
-  const { UserPersistence, setFolders } = useContext(Context);
+  const { UserPersistence, setFolders, setTasks, setFilterTask } =
+    useContext(Context);
   const [inputPlaceholder, setInputPlaceholder] = useState("crea una carpeta");
   const [sendCreateFolder, setSendCreateFolder] = useState({
     id: "",
@@ -20,11 +18,11 @@ const CreateFolder = () => {
   }
 
   const User =
-    UserPersistence && UserPersistence.user ? UserPersistence.user : null;
+    UserPersistence && UserPersistence.user ? UserPersistence.user.id : null;
 
   const captureCreateFolders = (e) => {
     setSendCreateFolder({
-      id: User.id,
+      id: User,
       name: e.target.value,
     });
   };
@@ -32,9 +30,36 @@ const CreateFolder = () => {
   const createFolder = () => {
     setInputPlaceholder("crea una carpeta");
     if (sendCreateFolder.name === "") return;
-    POST_CREATE_FOLDER(sendCreateFolder);
+    fetch("http://localhost:3000/api/folders/save-folder", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendCreateFolder),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        fetch(`http://localhost:3000/api/folders/get-folders/${User}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setFolders(data);
+            window.localStorage.setItem("Folders", JSON.stringify(data));
+            // message.success("se cargado correctamente las carpetas");
+            // console.log(data);
+            fetch(`http://localhost:3000/api/tasks/consult-tasks/${User}`)
+              .then((response) => response.json())
+              .then((data) => {
+                setTasks(data);
+                setFilterTask(data);
+                window.localStorage.setItem("Task", JSON.stringify(data));
+                window.localStorage.setItem("filterTask", JSON.stringify(data));
+                // message.success("se cargado correctamente las tareras");
+                // console.log(data);
+              });
+          });
+      });
     setTimeout(() => {
-      GET_FOLDERS(User.id, setFolders);
+      GET_FOLDERS(User, setFolders);
       setTimeout(() => {
         location.reload();
       }, 1000);

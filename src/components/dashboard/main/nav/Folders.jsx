@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CreateCategory from "./CreateCategory";
 import Context from "../../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import { SvgDeletet } from "../../../global/svg";
+import ModalDelete from "../../../global/ModalDelete";
 
 const Folders = () => {
   const {
@@ -15,6 +16,12 @@ const Folders = () => {
     setFilterTask,
     Tasks,
   } = useContext(Context);
+
+  const [openModal, setOpenModal] = useState(false);
+  const [infoModal, setInfoModal] = useState({
+    name: "",
+    id: "",
+  });
 
   if (!Folders) {
     <LoadingOutlined />;
@@ -40,7 +47,13 @@ const Folders = () => {
     setFilterTask(filterForID);
   };
 
-  // const deleteCategory = (categoryId) => {};
+  const deleteCategory = (category) => {
+    setOpenModal(true);
+    setInfoModal({
+      name: category.name,
+      id: category.id,
+    });
+  };
 
   return (
     <>
@@ -80,35 +93,48 @@ const Folders = () => {
 
               {folder.categories.map((category, index) => {
                 return (
-                  <li key={index}>
-                    <NavLink
-                      onClick={() => {
-                        handleChange(category.id);
-                        setTitle(`${nameFolder}/${category.name}`);
-                        filterForCategory(category.id);
-                        console.table(category.id);
-                      }}
-                      className={
-                        "block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100  dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer relative category"
-                      }
-                    >
-                      {category.name}
-
-                      <p
-                        // onClick={() => deleteCategory(category.id)}
-                        className="absolute -right-8 -bottom-2 font-extrabold svg-hover p-2"
+                  <div key={index}>
+                    <li>
+                      <NavLink
+                        onClick={() => {
+                          handleChange(category.id);
+                          setTitle(`${nameFolder}/${category.name}`);
+                          filterForCategory(category.id);
+                          console.table(category.id);
+                        }}
+                        className={
+                          "block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100  dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer relative category"
+                        }
                       >
-                        <SvgDeletet />
-                        {/* <LoadingOutlined /> */}
-                      </p>
-                    </NavLink>
-                  </li>
+                        {category.name}
+
+                        <p
+                          onClick={() => {
+                            deleteCategory(category);
+                          }}
+                          className="absolute -right-8 -bottom-2 font-extrabold svg-hover p-2"
+                        >
+                          <SvgDeletet />
+                        </p>
+                      </NavLink>
+                    </li>
+                  </div>
                 );
               })}
             </ul>
           </details>
         );
       })}
+      {openModal && (
+        <ModalDelete
+          name={infoModal.name}
+          id={infoModal.id}
+          close={setOpenModal}
+          textConfirm={
+            "Se eliminará la categoría y todos los elementos asociados, escribe "
+          }
+        />
+      )}
     </>
   );
 };

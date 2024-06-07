@@ -25,9 +25,6 @@ const Provider = ({ children }) => {
     due_date: "",
   });
 
-  // modal de eliminar tarea
-  const [modalDelete, setModalDelete] = useState(false);
-
   const PersistenceSession = () => {
     const storage = localStorage.getItem("UserData");
     if (storage) {
@@ -53,6 +50,8 @@ const Provider = ({ children }) => {
     PersistenceSession();
   }, []);
 
+  console.log(UserPersistence.user);
+
   return (
     <>
       <Context.Provider
@@ -75,8 +74,6 @@ const Provider = ({ children }) => {
           setFilterTask,
           filterState,
           setFilterState,
-          modalDelete,
-          setModalDelete,
         }}
       >
         {children}

@@ -1,12 +1,11 @@
 import { useContext, useState } from "react";
-import {
-  GET_FOLDERS,
-  POST_CREATE_CATEGORY,
-} from "../../../../fetch/getAndPostHome";
+import {} from "../../../../fetch/getAndPostHome";
 import Context from "../../../../context/Context";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const CreateCategory = ({ folder }) => {
-  const { setFolders } = useContext(Context);
+  const { setFolders, setTasks, setFilterTask, UserPersistence } =
+    useContext(Context);
   const [inputPlaceholder, setInputPlaceholder] =
     useState("crea una categoria");
 
@@ -21,15 +20,55 @@ const CreateCategory = ({ folder }) => {
       name: e.target.value,
     });
   };
+  if (!UserPersistence) {
+    return <LoadingOutlined />;
+  }
+
+  const idUser =
+    UserPersistence.user && UserPersistence.user.id
+      ? UserPersistence.user.id
+      : undefined;
 
   const createCategories = () => {
     setInputPlaceholder("crea una categoria");
     if (sendCreateFolder.name === "") return;
-
-    POST_CREATE_CATEGORY(sendCreateFolder, folder.id, setFolders);
-    setTimeout(() => {
-      GET_FOLDERS(folder.id, setFolders);
-    }, 1500);
+    fetch("http://localhost:3000/api/categories/save-category", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(sendCreateFolder),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        fetch(`http://localhost:3000/api/folders/get-folders/${idUser}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setFolders(data);
+            window.localStorage.setItem("Folders", JSON.stringify(data));
+            // message.success("se cargado correctamente las carpetas");
+            // console.log(data);
+            fetch(`http://localhost:3000/api/tasks/consult-tasks/${idUser}`)
+              .then((response) => response.json())
+              .then((data) => {
+                setTasks(data);
+                setFilterTask(data);
+                window.localStorage.setItem("Task", JSON.stringify(data));
+                window.localStorage.setItem("filterTask", JSON.stringify(data));
+                // message.success("se cargado correctamente las tareras");
+                // console.log(data);
+              });
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setSendCreateFolder({
+          id: folder.id,
+          name: "",
+        });
+      });
   };
 
   return (

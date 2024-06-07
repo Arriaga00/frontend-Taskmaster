@@ -162,15 +162,25 @@ export const POST_CREATE_FOLDER = async (data) => {
     });
 };
 
-export const DELETE_CATEGORY = async (id) => {
-  return await fetch(`http://localhost:3000/api/categories/delete-category`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id }),
-  }).then((response) => response.json());
-};
+// export const DELETE_CATEGORY = async (id) => {
+//   return await fetch(
+//     `http://localhost:3000/api/categories/delete-category/${id}`,
+//     {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ id }),
+//     }
+//   )
+//     .then((response) => response.json())
+//     .then(() => {
+//       window.localStorage.removeItem("Folders");
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// };
 
 // export const DELETE_FOLDER = async (id) => {
 //   return await fetch(`http://localhost:3000/api/categories/delete-category`,{

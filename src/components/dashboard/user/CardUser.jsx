@@ -6,8 +6,9 @@ import { LoadingOutlined } from "@ant-design/icons";
 import ModalDelete from "../../global/ModalDelete";
 
 const CardUser = () => {
-  const { UserPersistence, setModalDelete, modalDelete } = useContext(Context);
+  const { UserPersistence } = useContext(Context);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,7 +19,7 @@ const CardUser = () => {
   };
 
   const deleted = () => {
-    setModalDelete(true);
+    setOpenModal(true);
     console.log("deleted");
   };
 
@@ -84,7 +85,14 @@ const CardUser = () => {
           </div>
         )}
       </div>
-      {modalDelete && <ModalDelete name="Tarea" id="1" />}
+      {openModal && (
+        <ModalDelete
+          name={User.names}
+          id={User.id}
+          close={setOpenModal}
+          textConfirm="Eescribe "
+        />
+      )}
     </>
   );
 };
