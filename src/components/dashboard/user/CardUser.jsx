@@ -4,6 +4,7 @@ import { SvgIconDelete, SvgIconEdit } from "../../../components/global/svg";
 import Context from "../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
 import ModalDelete from "../../global/ModalDelete";
+import { message } from "antd";
 
 const CardUser = () => {
   const { UserPersistence } = useContext(Context);
@@ -36,9 +37,31 @@ const CardUser = () => {
       <LoadingOutlined />
     );
 
+  const funcionDelete = (data) => {
+    if (data.name === User.names) {
+      fetch(`http://localhost:3000/api/users/delete-user/${User.id}`)
+        .then((response) => response.json())
+        .then(() => {
+          message.success("Gracias por usar la aplicación");
+        })
+        .then(() => {
+          setTimeout(() => {
+            window.localStorage.clear();
+            window.location.href = "/";
+          }, 3000);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setOpenModal(false);
+        });
+    }
+  };
+
   const content = (
     <>
-      <section className="p-2 w-full  text-[#7A7A7A] text-lg font-bold border-b-2 border-[#242424]">
+      <section className="p-2 w-full  text-[#7A7A7A] text-lg font-bold ">
         {User && (
           <div className=" p-2 ">
             <p>Id : {User.id}</p>
@@ -47,7 +70,7 @@ const CardUser = () => {
               onChange={handleChange}
               value={User.names}
               type="text"
-              className="focus:outline-0 bg-transparent text-[#7A7A7A]  font-bold w-full "
+              className="focus:outline-0 bg-transparent text-[#7A7A7A] font-bold w-full "
             />
           </div>
         )}
@@ -55,12 +78,12 @@ const CardUser = () => {
           <div className="w-[50%] flex justify-center cursor-pointer rounded-md py-2 hover:bg-blue-500 hover:bg-opacity-20 hover:border-blue-500 ease-out duration-300">
             <SvgIconEdit />
           </div>
-          <div
+          <button
             onClick={deleted}
             className="w-[50%] flex justify-center cursor-pointer rounded-md py-2 hover:bg-red-500 hover:bg-opacity-20 hover:border-red-500 ease-out duration-300"
           >
             <SvgIconDelete />
-          </div>
+          </button>
         </div>
       </section>
     </>
@@ -71,14 +94,14 @@ const CardUser = () => {
       <div className="relative">
         <div
           onClick={toggleMenu}
-          className="inline-flex items-center overflow-hidden rounded-md border-2 bg-black border-[#242424] px-4 py-2 cursor-pointer hover:border-yellow-500"
+          className="inline-flex items-center overflow-hidden rounded-md  bg-black border-[#242424] px-4 py-1 cursor-pointer hover:bg-yellow-500 hover:bg-opacity-10"
         >
           <p className="text-yellow-500 font-bold  ">{avatar}</p>
         </div>
 
         {isMenuOpen && (
           <div
-            className="absolute end-0 -right-10 z-10 mt-2 w-[15rem] rounded-xl border   border-[#242424] backdrop-blur-md  "
+            className="absolute end-0 -right-10 z-10 mt-2 w-[15rem] rounded-xl border   border-[#242424]  backdrop-blur-[64px] bg-white/10 "
             role="menu"
           >
             {content}
@@ -89,8 +112,9 @@ const CardUser = () => {
         <ModalDelete
           name={User.names}
           id={User.id}
-          close={setOpenModal}
+          closes={setOpenModal}
           textConfirm="Eescribe "
+          fetchs={funcionDelete}
         />
       )}
     </>

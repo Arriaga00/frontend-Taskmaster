@@ -1,67 +1,9 @@
 import { useForm } from "react-hook-form";
 import { SvgDeletet } from "./svg";
-import { useContext, useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import Context from "../../context/Context";
 
-const ModalDelete = ({ name, id, close, textConfirm }) => {
-  const { UserPersistence, setFolders, setTasks, setFilterTask } =
-    useContext(Context);
+const ModalDelete = ({ name, textConfirm, fetchs, loading, closes }) => {
   const { register, handleSubmit } = useForm();
-  const [loading, setLoading] = useState(false);
-
-  if (!UserPersistence) {
-    return <LoadingOutlined />;
-  }
-
-  const idUser =
-    UserPersistence.user && UserPersistence.user.id
-      ? UserPersistence.user.id
-      : undefined;
-
-  const handleDelete = (data) => {
-    setLoading(true);
-    if (data.name === name) {
-      fetch(`http://localhost:3000/api/categories/delete-category/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      })
-        .then((response) => response.json())
-        .then(() => {
-          fetch(`http://localhost:3000/api/folders/get-folders/${idUser}`)
-            .then((response) => response.json())
-            .then((data) => {
-              setFolders(data);
-              window.localStorage.setItem("Folders", JSON.stringify(data));
-              //   message.success("se cargado correctamente las carpetas");
-              // console.log(data);
-              fetch(`http://localhost:3000/api/tasks/consult-tasks/${idUser}`)
-                .then((response) => response.json())
-                .then((data) => {
-                  setTasks(data);
-                  setFilterTask(data);
-                  window.localStorage.setItem("Task", JSON.stringify(data));
-                  window.localStorage.setItem(
-                    "filterTask",
-                    JSON.stringify(data)
-                  );
-                  //   message.success("se cargado correctamente las tareras");
-                  // console.log(data);
-                });
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          setLoading(false);
-          close(false);
-        });
-    }
-  };
 
   return (
     <>
@@ -74,7 +16,7 @@ const ModalDelete = ({ name, id, close, textConfirm }) => {
             </span>{" "}
             para eliminar
           </p>
-          <form onSubmit={handleSubmit(handleDelete)}>
+          <form onSubmit={handleSubmit(fetchs)}>
             <input
               type="text"
               name="name"
@@ -91,7 +33,7 @@ const ModalDelete = ({ name, id, close, textConfirm }) => {
           </form>
           <p
             className="absolute top-1 right-1 text-[#7A7A7A] font-semibold text-sm cursor-pointer"
-            onClick={() => close(false)}
+            onClick={() => closes(false)}
           >
             <SvgDeletet />
           </p>

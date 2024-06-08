@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Context from "../../../../context/Context";
 import { useForm } from "react-hook-form";
 import { LoadingOutlined } from "@ant-design/icons";
+import { SvgDeletet } from "../../../global/svg";
 
 const DetailsTask = () => {
   const { OpenViewTask, setOpenViewTask, setTasks, UserPersistence } =
@@ -268,9 +269,9 @@ const DetailsTask = () => {
         </form>
         <span
           onClick={() => setOpenViewTask([])}
-          className="absolute -top-3  -right-2 px-2  rounded-full bg-red-500 bg-opacity-30 text-red-500 cursor-pointer"
+          className="absolute top-2  right-0 px-2  cursor-pointer"
         >
-          x
+          <SvgDeletet />
         </span>
       </section>
     </>

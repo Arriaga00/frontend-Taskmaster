@@ -15,9 +15,12 @@ const Folders = () => {
     UserPersistence,
     setFilterTask,
     Tasks,
+    setTasks,
+    setFolders,
   } = useContext(Context);
 
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [infoModal, setInfoModal] = useState({
     name: "",
     id: "",
@@ -31,7 +34,10 @@ const Folders = () => {
     <LoadingOutlined />;
   }
 
-  const id = UserPersistence && UserPersistence.user && UserPersistence.user.id;
+  const id =
+    UserPersistence && UserPersistence.user && UserPersistence.user.id
+      ? UserPersistence.user.id
+      : undefined;
 
   const handleChange = (categoryId) => {
     setCreateTask({
@@ -53,6 +59,54 @@ const Folders = () => {
       name: category.name,
       id: category.id,
     });
+  };
+
+  const funcionDelete = (data) => {
+    if (data.name === infoModal.name) {
+      console.log(true);
+      setLoading(true);
+      fetch(
+        `http://localhost:3000/api/categories/delete-category/${infoModal.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id }),
+        }
+      )
+        .then((response) => response.json())
+        .then(() => {
+          fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+              setFolders(data);
+              window.localStorage.setItem("Folders", JSON.stringify(data));
+              //   message.success("se cargado correctamente las carpetas");
+              // console.log(data);
+              fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+                .then((response) => response.json())
+                .then((data) => {
+                  setTasks(data);
+                  setFilterTask(data);
+                  window.localStorage.setItem("Task", JSON.stringify(data));
+                  window.localStorage.setItem(
+                    "filterTask",
+                    JSON.stringify(data)
+                  );
+                  //   message.success("se cargado correctamente las tareras");
+                  // console.log(data);
+                });
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+          setOpenModal(false);
+        });
+    }
   };
 
   return (
@@ -128,8 +182,10 @@ const Folders = () => {
       {openModal && (
         <ModalDelete
           name={infoModal.name}
-          id={infoModal.id}
-          close={setOpenModal}
+          closes={setOpenModal}
+          fetchs={funcionDelete}
+          setLoading={setLoading}
+          loading={loading}
           textConfirm={
             "Se eliminará la categoría y todos los elementos asociados, escribe "
           }

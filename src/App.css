@@ -30,7 +30,9 @@
   -moz-text-fill-color: transparent;
 }
 
-
+.padinInter{
+  box-sizing: border-box;
+}
 
 .svg-hover {
   display: none;
