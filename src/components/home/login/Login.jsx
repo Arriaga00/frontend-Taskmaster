@@ -107,7 +107,7 @@ const Login = () => {
             {...register("password", {
               required: true,
               maxLength: {
-                value: 10,
+                value: 40,
                 message: "La contraseña debe tener entre 5 y 10 caracteres",
               },
               minLength: {

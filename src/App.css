@@ -51,3 +51,14 @@
   background-color: #242424;
   border-radius: 10px;
 }
+
+.menuHover {
+  display: none !important;
+}
+
+
+.folderHover:hover .menuHover {
+  display: flex !important;
+  justify-content: space-between;
+}
+

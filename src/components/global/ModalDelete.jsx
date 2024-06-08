@@ -7,11 +7,11 @@ const ModalDelete = ({ name, textConfirm, fetchs, loading, closes }) => {
 
   return (
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 w-full">
+      <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 w-full">
         <div className="flex  items-center mb-2 p-3  border border-[#242424] rounded-lg shadow-lg backdrop-blur-sm bg-black w-96 flex-col relative py-6">
           <p className=" text-[#7A7A7A] font-semibold">
             {textConfirm}
-            <span className="text-red-500 font-bold text-opacity-80">
+            <span className="text-blue-500 font-bold text-opacity-80">
               {name}
             </span>{" "}
             para eliminar
@@ -38,7 +38,7 @@ const ModalDelete = ({ name, textConfirm, fetchs, loading, closes }) => {
             <SvgDeletet />
           </p>
         </div>
-      </div>
+      </section>
     </>
   );
 };

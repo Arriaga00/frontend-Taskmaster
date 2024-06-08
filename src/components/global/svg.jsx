@@ -1,4 +1,4 @@
-export const SvgIconDelete = () => {
+export const SvgIconDelete = ({ size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,7 +6,7 @@ export const SvgIconDelete = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-7 text-red-500"
+      className={`size-${size} text-red-500`}
     >
       <path
         strokeLinecap="round"
@@ -17,7 +17,7 @@ export const SvgIconDelete = () => {
   );
 };
 
-export const SvgIconEdit = () => {
+export const SvgIconEdit = ({ size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ export const SvgIconEdit = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="size-7 text-blue-500 "
+      className={`size-${size} text-blue-500 `}
     >
       <path
         strokeLinecap="round"

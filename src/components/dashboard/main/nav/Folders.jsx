@@ -3,8 +3,9 @@ import CreateCategory from "./CreateCategory";
 import Context from "../../../../context/Context";
 import { LoadingOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
-import { SvgDeletet } from "../../../global/svg";
+import { SvgDeletet, SvgIconDelete, SvgIconEdit } from "../../../global/svg";
 import ModalDelete from "../../../global/ModalDelete";
+import ModalEdit from "../../../global/ModalEdit";
 
 const Folders = () => {
   const {
@@ -21,10 +22,21 @@ const Folders = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [infoModalEdit, setInfoModalEdit] = useState({
+    name: "",
+    id: "",
+  });
   const [infoModal, setInfoModal] = useState({
     name: "",
     id: "",
   });
+  const [infoModalDelete, setInfoModalDelete] = useState({
+    name: "",
+    id: "",
+  });
+  const [folderId, setFolderId] = useState(0);
 
   if (!Folders) {
     <LoadingOutlined />;
@@ -109,6 +121,88 @@ const Folders = () => {
     }
   };
 
+  const deleteFolder = (folder) => {
+    setOpenModalDelete(true);
+    setInfoModalDelete({
+      name: folder.name,
+      id: folder.id,
+    });
+  };
+
+  const funcionDeleteDeleteFolder = (data) => {
+    console.log(data, infoModalDelete.id);
+    if (data.name === infoModalDelete.name) {
+      fetch(
+        `http://localhost:3000/api/folders/delete-folder/${infoModalDelete.id}`,
+        {
+          method: "DELETE",
+        }
+      )
+        .then((response) => response.json())
+        .then(() => {
+          fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+              setFolders(data);
+              window.localStorage.setItem("Folders", JSON.stringify(data));
+              fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+                .then((response) => response.json())
+                .then((data) => {
+                  setTasks(data);
+                  setFilterTask(data);
+                  window.localStorage.setItem("Task", JSON.stringify(data));
+                  window.localStorage.setItem(
+                    "filterTask",
+                    JSON.stringify(data)
+                  );
+                });
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+          setOpenModalDelete(false);
+        });
+    }
+  };
+
+  const editFolderNamee = (folder) => {
+    console.log(folder);
+    setInfoModalEdit({ name: folder.name, id: folder.id });
+  };
+
+  const funcionEditFolderNamee = (data) => {
+    setLoading(true);
+    fetch("http://localhost:3000/api/folders/update-folder", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: folderId,
+        name: data.name,
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setFolders(data);
+            window.localStorage.setItem("Folders", JSON.stringify(data));
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+        setOpenModalEdit(false);
+      });
+  };
+
   return (
     <>
       {Folders.map((folder, index) => {
@@ -120,9 +214,31 @@ const Folders = () => {
           >
             <summary
               onClick={() => setTitle(nameFolder)}
-              className="group flex items-center justify-between rounded-lg px-4 py-2 text-[#7a7a7a] hover:bg-gray-100 hover:text-[#242424] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer"
+              className="group flex items-center justify-between rounded-lg px-4 py-2 text-[#7a7a7a] hover:bg-gray-100 hover:text-[#242424] dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer relative folderHover"
             >
               <span className="text-sm font-bold"> {folder.name} </span>
+
+              <div
+                className=" flex items-center justify-center absolute -right-16 -bottom-5 font-extrabold py-1  w-20   z-50 rounded-md px-2  backdrop-blur-xl bg-white/10 menuHover "
+                style={{}}
+              >
+                <p
+                  className="hover:scale-105 transition duration-200 w-[50%]"
+                  onClick={() => deleteFolder(folder)}
+                >
+                  <SvgIconDelete size={6} />
+                </p>
+                <p
+                  className="hover:scale-105 transition duration-200 w-[50%] text-center "
+                  onClick={() => {
+                    editFolderNamee(folder),
+                      setOpenModalEdit(true),
+                      setFolderId(folder.id);
+                  }}
+                >
+                  <SvgIconEdit size={6} />
+                </p>
+              </div>
 
               <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                 <svg
@@ -154,7 +270,6 @@ const Folders = () => {
                           handleChange(category.id);
                           setTitle(`${nameFolder}/${category.name}`);
                           filterForCategory(category.id);
-                          console.table(category.id);
                         }}
                         className={
                           "block rounded-lg px-4 py-1 text-sm  hover:bg-gray-100  dark:text-[#7a7a7a] dark:hover:bg-[#242424] dark:hover:text-gray-200 cursor-pointer relative category"
@@ -189,6 +304,27 @@ const Folders = () => {
           textConfirm={
             "Se eliminará la categoría y todos los elementos asociados, escribe "
           }
+        />
+      )}
+      {openModalDelete && (
+        <ModalDelete
+          name={infoModalDelete.name}
+          closes={setOpenModalDelete}
+          fetchs={funcionDeleteDeleteFolder}
+          setLoading={setLoading}
+          loading={loading}
+          textConfirm={
+            "Se eliminará la carpeta y todos los elementos asociados, escribe "
+          }
+        />
+      )}
+      {openModalEdit && (
+        <ModalEdit
+          name={infoModalEdit.name}
+          closeModal={setOpenModalEdit}
+          loading={loading}
+          funcionEdit={funcionEditFolderNamee}
+          user={false}
         />
       )}
     </>
