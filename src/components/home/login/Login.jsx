@@ -129,12 +129,12 @@ const Login = () => {
           </button>
         </form>
         <p className="flex gap-5 items-center  text-[#707070]">
-          No tienes cuenta?{" "}
+          Olvidaste tu conntraseña?{" "}
           <NavLink
-            to={"/home/signup"}
+            to={"/reset-password"}
             className="font-bold underline decoration-2 hover:text-blue-500 cursor-pointer ease-out duration-300"
           >
-            Regístrate
+            Reuperar contraseña
           </NavLink>
         </p>
       </section>

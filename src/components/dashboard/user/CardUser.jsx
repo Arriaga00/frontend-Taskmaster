@@ -63,7 +63,7 @@ const CardUser = () => {
       id: User.id,
       names: data.name || User.names,
       email: data.email || User.email,
-      password: data.password,
+      password: data.password || User.password,
     });
 
     fetch("http://localhost:3000/api/users/update-user", {
@@ -87,8 +87,17 @@ const CardUser = () => {
         fetch(`http://localhost:3000/api/users/get-user/${User.id}`)
           .then((response) => response.json())
           .then((data) => {
-            setUserPersistence(data);
-            window.localStorage.setItem("UserData", JSON.stringify(data));
+            setUserPersistence([
+              {
+                token: UserPersistence.token,
+                user: data,
+              },
+            ]);
+            const userData = JSON.parse(localStorage.getItem("UserData"));
+            userData.user = data;
+            localStorage.setItem("UserData", JSON.stringify(userData));
+          })
+          .then(() => {
             setOpenModalEdit(false);
           })
           .catch((error) => {
@@ -103,6 +112,7 @@ const CardUser = () => {
       .finally(() => {
         setLoading(false);
         setOpenModalEdit(false);
+        window.location.reload();
       });
   };
 

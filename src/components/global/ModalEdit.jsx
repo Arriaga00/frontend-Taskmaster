@@ -45,7 +45,7 @@ const ModalEdit = ({ text, name, closeModal, funcionEdit, loading, user }) => {
             {user && (
               <input
                 type="text"
-                placeholder="Contraseña"
+                placeholder="icambiar contrraseña"
                 className="w-full  bg-transparent text-[#7A7A7A]  font-bold p-2 focus:outline-0 border-b-2 border-[#242424] mb-4 text-center"
                 {...register("password")}
               />
@@ -55,25 +55,7 @@ const ModalEdit = ({ text, name, closeModal, funcionEdit, loading, user }) => {
                 {errors.password.message}
               </p>
             )}
-            {user && (
-              <input
-                type="email"
-                placeholder="email"
-                className="w-full  bg-transparent text-[#7A7A7A]  font-bold p-2 focus:outline-0 border-b-2 border-[#242424] mb-4 text-center"
-                {...register("password", {
-                  required: true,
-                  minLength: {
-                    value: 5,
-                    message: "El email debe tener entre 5 y 20 caracteres",
-                  },
-                  pattern: {
-                    value:
-                      /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: "Ingresa un correo electrónico válido",
-                  },
-                })}
-              />
-            )}
+
             <button className="w-full bg-blue-500 bg-opacity-10 text-blue-500 px-2 py-2 rounded-md  hover:bg-blue-500 hover:bg-opacity-30 ease-out duration-300 font-bold">
               Editar {loading && <LoadingOutlined />}
             </button>

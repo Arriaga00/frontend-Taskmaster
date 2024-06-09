@@ -27,7 +27,7 @@ const SectionHome = () => {
               </p>
 
               <NavLink
-                to={"/home/signup"}
+                to={"/signup"}
                 className="mt-8 inline-block rounded-full border border-yellow-500 bg-yellow-500 bg-opacity-10 font-bold px-12 py-3 text-sm text-yellow-500 transition hover:bg-yellow-500 hover:text-black ease-out duration-500"
               >
                 Comience hoy mismo

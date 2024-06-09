@@ -50,7 +50,7 @@ const CreateUser = () => {
             {...register("names", {
               required: true,
               maxLength: {
-                value: 15,
+                value: 40,
                 message:
                   "El nombre y el apellido deben tener entre 2 y 15 caracteres",
               },
