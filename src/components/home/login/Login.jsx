@@ -33,12 +33,19 @@ const Login = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((data) => {
+            message.error(data.msg);
+            throw new Error(data.msg);
+          });
+        }
+        return res.json();
+      })
       .then((data) => {
         setUserPersistence(data);
         window.localStorage.setItem("loguinUser", true);
         window.localStorage.setItem("UserData", JSON.stringify(data));
-        message.success("se registro correctamente");
         const id = data.user.id;
         fetch(
           `https://api-taskmaster.up.railway.app/api/folders/get-folders/${id}`
@@ -60,16 +67,24 @@ const Login = () => {
                 window.localStorage.setItem("filterTask", JSON.stringify(data));
                 message.success("se cargado correctamente las tareras");
                 // console.log(data);
+              })
+              .then(() => {
+                setLoading(false);
+                navigate("/dashboard");
+              })
+              .catch((error) => {
+                setLoading(false);
+                console.log(error);
               });
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error);
           });
       })
       .catch((error) => {
         setLoading(false);
         console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-        navigate("/dashboard");
       });
   };
 
