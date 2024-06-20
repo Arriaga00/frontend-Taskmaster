@@ -18,10 +18,6 @@ const CardUser = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
-
   const deleted = () => {
     setOpenModal(true);
     console.log("deleted");
@@ -122,13 +118,10 @@ const CardUser = () => {
         {User && (
           <div className=" p-2 ">
             <p>Id : {User.id}</p>
-            <p>{User.email}</p>
-            <input
-              onChange={handleChange}
-              value={User.names}
-              type="text"
-              className="focus:outline-0 bg-transparent text-[#7A7A7A] font-bold w-full "
-            />
+            <p className=" w-full">{User.email}</p>
+            <p className="focus:outline-0 bg-transparent text-[#7A7A7A] font-bold w-full">
+              {User.names}
+            </p>
           </div>
         )}
         <div className="flex justify-evenly w-full pt-2">
@@ -161,7 +154,7 @@ const CardUser = () => {
 
         {isMenuOpen && (
           <div
-            className="absolute end-0 -right-10 z-10 mt-2 w-[15rem] rounded-xl border   border-[#242424]  bg-black/70 backdrop-blur-xl "
+            className="absolute end-0 -right-10 z-10 mt-2  rounded-xl border   border-[#242424]  bg-black/70 backdrop-blur-xl "
             role="menu"
           >
             {content}
