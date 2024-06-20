@@ -53,6 +53,7 @@ const CardUser = () => {
           setOpenModal(false);
         });
     }
+    console.log(User.id);
   };
 
   const funcionEdit = (data) => {

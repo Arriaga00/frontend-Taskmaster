@@ -109,7 +109,7 @@ export const POST_SIGNUP = async (data, setLoading, navigate) => {
       message.success("Usuario creado correctamente");
       setTimeout(() => {
         setLoading(false);
-        navigate("login");
+        navigate("/login");
       }, 1500);
     })
     .catch((error) => {
