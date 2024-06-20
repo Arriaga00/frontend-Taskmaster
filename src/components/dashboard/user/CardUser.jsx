@@ -61,7 +61,7 @@ const CardUser = () => {
       id: User.id,
       names: data.name || User.names,
       email: data.email || User.email,
-      password: data.password || User.password,
+      password: data.password,
     });
 
     fetch("https://api-taskmaster.up.railway.app/api/users/update-user", {
@@ -170,7 +170,7 @@ const CardUser = () => {
           name={User.names}
           id={User.id}
           closes={setOpenModal}
-          textConfirm="Eescribe "
+          textConfirm="Escribe "
           fetchs={funcionDelete}
         />
       )}

@@ -28,7 +28,7 @@ const MainToDo = () => {
             <CardUser />
           </div>
         </div>
-        <main className="w-full h-[97%] flex mainTodo">
+        <main className="w-full h-[97%] flex mainTodo ">
           <section className="w-[50%] h-full border-r border-r-[#242424] py-5 pr-5 relative overflow-y-auto pt-0 overflow-y scrollCss ">
             <ToDo />
             {formTask ? (

@@ -26,7 +26,7 @@ const ModalEdit = ({ text, name, closeModal, funcionEdit, loading, user }) => {
               id="name"
               className="w-full  bg-transparent text-[#7A7A7A]  font-bold p-2 focus:outline-0 border-b-2 border-[#242424] mb-4 text-center"
               {...register("name", {
-                required: true,
+                required: false,
                 minLength: {
                   value: 5,
                   message: "El nombre debe tener entre 5 y 40 caracteres",
@@ -45,7 +45,7 @@ const ModalEdit = ({ text, name, closeModal, funcionEdit, loading, user }) => {
             {user && (
               <input
                 type="text"
-                placeholder="icambiar contrraseña"
+                placeholder="cambiar contraseña"
                 className="w-full  bg-transparent text-[#7A7A7A]  font-bold p-2 focus:outline-0 border-b-2 border-[#242424] mb-4 text-center"
                 {...register("password")}
               />

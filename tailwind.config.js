@@ -7,6 +7,11 @@ export default {
         sans: ["var(--font-geist-sans)"],
         mono: ["var(--font-geist-mono)"],
       },
+      screens: {
+        sm: "640px",
+        md: "890px",
+        lg: "1024px",
+      },
     },
   },
   plugins: [],
