@@ -33,7 +33,9 @@ const CardUser = () => {
 
   const funcionDelete = (data) => {
     if (data.name === User.names) {
-      fetch(`http://localhost:3000/api/users/delete-user/${User.id}`)
+      fetch(
+        `https://api-taskmaster.up.railway.app/api/users/delete-user/${User.id}`
+      )
         .then((response) => response.json())
         .then(() => {
           message.success("Gracias por usar la aplicación");
@@ -62,7 +64,7 @@ const CardUser = () => {
       password: data.password || User.password,
     });
 
-    fetch("http://localhost:3000/api/users/update-user", {
+    fetch("https://api-taskmaster.up.railway.app/api/users/update-user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +82,9 @@ const CardUser = () => {
         setOpenModalEdit(false);
       })
       .then(() => {
-        fetch(`http://localhost:3000/api/users/get-user/${User.id}`)
+        fetch(
+          `https://api-taskmaster.up.railway.app/api/users/get-user/${User.id}`
+        )
           .then((response) => response.json())
           .then((data) => {
             setUserPersistence([

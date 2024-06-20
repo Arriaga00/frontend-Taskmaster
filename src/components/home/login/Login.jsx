@@ -26,7 +26,7 @@ const Login = () => {
 
   const loginUser = (data) => {
     setLoading(true);
-    fetch("http://localhost:3000/api/auth/register", {
+    fetch("https://api-taskmaster.up.railway.app/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,14 +40,18 @@ const Login = () => {
         window.localStorage.setItem("UserData", JSON.stringify(data));
         message.success("se registro correctamente");
         const id = data.user.id;
-        fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+        fetch(
+          `https://api-taskmaster.up.railway.app/api/folders/get-folders/${id}`
+        )
           .then((response) => response.json())
           .then((data) => {
             setFolders(data);
             window.localStorage.setItem("Folders", JSON.stringify(data));
             message.success("se cargado correctamente las carpetas");
             // console.log(data);
-            fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+            fetch(
+              `https://api-taskmaster.up.railway.app/api/tasks/consult-tasks/${id}`
+            )
               .then((response) => response.json())
               .then((data) => {
                 setTasks(data);

@@ -28,7 +28,7 @@ const UpdatePassword = () => {
     };
     console.table(dataSend);
 
-    fetch("http://localhost:3000/api/users/update-user", {
+    fetch("https://api-taskmaster.up.railway.app/api/users/update-user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -30,7 +30,7 @@ const CreateFolder = () => {
   const createFolder = () => {
     setInputPlaceholder("crea una carpeta");
     if (sendCreateFolder.name === "") return;
-    fetch("http://localhost:3000/api/folders/save-folder", {
+    fetch("https://api-taskmaster.up.railway.app/api/folders/save-folder", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,14 +39,18 @@ const CreateFolder = () => {
     })
       .then((res) => res.json())
       .then(() => {
-        fetch(`http://localhost:3000/api/folders/get-folders/${User}`)
+        fetch(
+          `https://api-taskmaster.up.railway.app/api/folders/get-folders/${User}`
+        )
           .then((response) => response.json())
           .then((data) => {
             setFolders(data);
             window.localStorage.setItem("Folders", JSON.stringify(data));
             // message.success("se cargado correctamente las carpetas");
             // console.log(data);
-            fetch(`http://localhost:3000/api/tasks/consult-tasks/${User}`)
+            fetch(
+              `https://api-taskmaster.up.railway.app/api/tasks/consult-tasks/${User}`
+            )
               .then((response) => response.json())
               .then((data) => {
                 setTasks(data);

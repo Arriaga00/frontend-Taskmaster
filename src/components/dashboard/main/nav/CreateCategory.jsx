@@ -32,23 +32,30 @@ const CreateCategory = ({ folder }) => {
   const createCategories = () => {
     setInputPlaceholder("crea una categoria");
     if (sendCreateFolder.name === "") return;
-    fetch("http://localhost:3000/api/categories/save-category", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(sendCreateFolder),
-    })
+    fetch(
+      "https://api-taskmaster.up.railway.app/api/categories/save-category",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sendCreateFolder),
+      }
+    )
       .then((res) => res.json())
       .then(() => {
-        fetch(`http://localhost:3000/api/folders/get-folders/${idUser}`)
+        fetch(
+          `https://api-taskmaster.up.railway.app/api/folders/get-folders/${idUser}`
+        )
           .then((response) => response.json())
           .then((data) => {
             setFolders(data);
             window.localStorage.setItem("Folders", JSON.stringify(data));
             // message.success("se cargado correctamente las carpetas");
             // console.log(data);
-            fetch(`http://localhost:3000/api/tasks/consult-tasks/${idUser}`)
+            fetch(
+              `https://api-taskmaster.up.railway.app/api/tasks/consult-tasks/${idUser}`
+            )
               .then((response) => response.json())
               .then((data) => {
                 setTasks(data);

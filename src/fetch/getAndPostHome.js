@@ -1,7 +1,9 @@
 import { message } from "antd";
 
 export const GET_TASKS = async (id, setTasks) => {
-  return await fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+  return await fetch(
+    `https://api-taskmaster.up.railway.app/api/tasks/consult-tasks/${id}`
+  )
     .then(async (response) => {
       const data = await response.json();
       if (!response.ok) {
@@ -21,7 +23,9 @@ export const GET_TASKS = async (id, setTasks) => {
 };
 
 export const GET_FOLDERS = async (id, setFolders) => {
-  return await fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+  return await fetch(
+    `https://api-taskmaster.up.railway.app/api/folders/get-folders/${id}`
+  )
     .then(async (response) => {
       const data = await response.json();
       if (!response.ok) {
@@ -46,7 +50,7 @@ export const GET_FOLDERS = async (id, setFolders) => {
 //   navigate,
 //   setUserPersistence
 // ) => {
-//   return await fetch("http://localhost:3000/api/auth/register", {
+//   return await fetch("https://api-taskmaster.up.railway.app/api/auth/register", {
 //     method: "POST",
 //     headers: {
 //       "Content-Type": "application/json",
@@ -83,13 +87,16 @@ export const GET_FOLDERS = async (id, setFolders) => {
 // };
 
 export const POST_SIGNUP = async (data, setLoading, navigate) => {
-  return await fetch("http://localhost:3000/api/users/save-user", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
+  return await fetch(
+    "https://api-taskmaster.up.railway.app/api/users/save-user",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  )
     .then(async (response) => {
       const data = await response.json();
       if (!response.ok) {
@@ -112,13 +119,16 @@ export const POST_SIGNUP = async (data, setLoading, navigate) => {
 };
 
 export const POST_CREATE_CATEGORY = async (data, id, setFolders) => {
-  return await fetch("http://localhost:3000/api/categories/save-category", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
+  return await fetch(
+    "https://api-taskmaster.up.railway.app/api/categories/save-category",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  )
     .then(async (response) => {
       const data = await response.json();
       if (!response.ok) {
@@ -139,13 +149,16 @@ export const POST_CREATE_CATEGORY = async (data, id, setFolders) => {
 };
 
 export const POST_CREATE_FOLDER = async (data) => {
-  return await fetch("http://localhost:3000/api/folders/save-folder", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
+  return await fetch(
+    "https://api-taskmaster.up.railway.app/api/folders/save-folder",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  )
     .then(async (response) => {
       const data = await response.json();
       if (!response.ok) {
@@ -164,7 +177,7 @@ export const POST_CREATE_FOLDER = async (data) => {
 
 // export const DELETE_CATEGORY = async (id) => {
 //   return await fetch(
-//     `http://localhost:3000/api/categories/delete-category/${id}`,
+//     `https://api-taskmaster.up.railway.app/api/categories/delete-category/${id}`,
 //     {
 //       method: "DELETE",
 //       headers: {
@@ -183,7 +196,7 @@ export const POST_CREATE_FOLDER = async (data) => {
 // };
 
 // export const DELETE_FOLDER = async (id) => {
-//   return await fetch(`http://localhost:3000/api/categories/delete-category`,{
+//   return await fetch(`https://api-taskmaster.up.railway.app/api/categories/delete-category`,{
 //     method: "DELETE",
 //     headers: {
 //       "Content-Type": "application/json",

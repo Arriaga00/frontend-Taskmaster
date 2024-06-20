@@ -78,7 +78,7 @@ const Folders = () => {
       console.log(true);
       setLoading(true);
       fetch(
-        `http://localhost:3000/api/categories/delete-category/${infoModal.id}`,
+        `https://api-taskmaster.up.railway.app/api/categories/delete-category/${infoModal.id}`,
         {
           method: "DELETE",
           headers: {
@@ -89,14 +89,18 @@ const Folders = () => {
       )
         .then((response) => response.json())
         .then(() => {
-          fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+          fetch(
+            `https://api-taskmaster.up.railway.app/api/folders/get-folders/${id}`
+          )
             .then((response) => response.json())
             .then((data) => {
               setFolders(data);
               window.localStorage.setItem("Folders", JSON.stringify(data));
               //   message.success("se cargado correctamente las carpetas");
               // console.log(data);
-              fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+              fetch(
+                `https://api-taskmaster.up.railway.app/api/tasks/consult-tasks/${id}`
+              )
                 .then((response) => response.json())
                 .then((data) => {
                   setTasks(data);
@@ -133,19 +137,23 @@ const Folders = () => {
     console.log(data, infoModalDelete.id);
     if (data.name === infoModalDelete.name) {
       fetch(
-        `http://localhost:3000/api/folders/delete-folder/${infoModalDelete.id}`,
+        `https://api-taskmaster.up.railway.app/api/folders/delete-folder/${infoModalDelete.id}`,
         {
           method: "DELETE",
         }
       )
         .then((response) => response.json())
         .then(() => {
-          fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+          fetch(
+            `https://api-taskmaster.up.railway.app/api/folders/get-folders/${id}`
+          )
             .then((response) => response.json())
             .then((data) => {
               setFolders(data);
               window.localStorage.setItem("Folders", JSON.stringify(data));
-              fetch(`http://localhost:3000/api/tasks/consult-tasks/${id}`)
+              fetch(
+                `https://api-taskmaster.up.railway.app/api/tasks/consult-tasks/${id}`
+              )
                 .then((response) => response.json())
                 .then((data) => {
                   setTasks(data);
@@ -175,7 +183,7 @@ const Folders = () => {
 
   const funcionEditFolderNamee = (data) => {
     setLoading(true);
-    fetch("http://localhost:3000/api/folders/update-folder", {
+    fetch("https://api-taskmaster.up.railway.app/api/folders/update-folder", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -187,7 +195,9 @@ const Folders = () => {
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:3000/api/folders/get-folders/${id}`)
+        fetch(
+          `https://api-taskmaster.up.railway.app/api/folders/get-folders/${id}`
+        )
           .then((response) => response.json())
           .then((data) => {
             setFolders(data);

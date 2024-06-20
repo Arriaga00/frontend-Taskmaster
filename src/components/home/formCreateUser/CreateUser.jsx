@@ -141,7 +141,7 @@ const CreateUser = () => {
         <p className="flex gap-5 items-center  text-[#707070]">
           Tienes cuenta?{" "}
           <NavLink
-            to={"/home/login"}
+            to={"/login"}
             className="font-bold underline decoration-2 hover:text-blue-500 cursor-pointer ease-out duration-300"
           >
             Inicia sesión

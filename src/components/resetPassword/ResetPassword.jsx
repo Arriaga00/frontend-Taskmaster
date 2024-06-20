@@ -15,13 +15,16 @@ const ResetPassword = () => {
 
   const resetPassword = (data) => {
     setLoading(true);
-    fetch("http://localhost:3000/api/reload-password/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      "https://api-taskmaster.up.railway.app/api/reload-password/send-email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           message.error("Correo inválido");

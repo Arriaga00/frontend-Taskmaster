@@ -9,7 +9,8 @@ const Footer = () => {
           // animate={{ opacity: 1 }}
           // initial={{ opacity: 0 }}
           // exit={{ opacity: 0 }}
-          href="#"
+          href="https://arriagadev.vercel.app/"
+          target="_blank"
           className="font-bold text-[#707070] border-[#242424] px-3 py-1 hover:text-blue-500 ease-out duration-300 "
         >
           @ArriagaDev <LinkOutlined />

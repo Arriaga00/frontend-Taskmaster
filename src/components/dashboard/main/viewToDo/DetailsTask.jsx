@@ -49,7 +49,7 @@ const DetailsTask = () => {
     const updateTask = { id: OpenViewTask.id, ...data };
     console.table(updateTask);
 
-    fetch(`http://localhost:3000/api/tasks/update-task`, {
+    fetch(`https://api-taskmaster.up.railway.app/api/tasks/update-task`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,9 @@ const DetailsTask = () => {
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:3000/api/tasks/consult-tasks/${User}`)
+        fetch(
+          `https://api-taskmaster.up.railway.app/api/tasks/consult-tasks/${User}`
+        )
           .then((response) => response.json())
           .then((data) => {
             window.localStorage.setItem("Task", JSON.stringify(data));

@@ -31,7 +31,7 @@ const CreateTask = ({ closeCereateTask }) => {
     };
     console.table(newTask);
     setCreateTask(newTask);
-    fetch("http://localhost:3000/api/tasks/save-task", {
+    fetch("https://api-taskmaster.up.railway.app/api/tasks/save-task", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
